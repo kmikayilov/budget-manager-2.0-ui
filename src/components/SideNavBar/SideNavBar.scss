@@ -1,4 +1,4 @@
-@import '../../assets/scss/_colors.scss';
+@import "../../assets/scss/_colors.scss";
 
 .side-nav-bar {
 	width: 70px;
@@ -43,7 +43,7 @@
 							background-color: $app-bg;
 
 							&::before {
-								content: '';
+								content: "";
 								position: absolute;
 								top: 0;
 								left: 0;
@@ -55,7 +55,7 @@
 						}
 
 						&:nth-child(2) {
-							top: 51px;
+							top: 50px;
 							&::before {
 								border-top-right-radius: 20px;
 								border-bottom-right-radius: 0;

@@ -1,12 +1,15 @@
-@import './_colors.scss';
+@import "./_colors.scss";
 
 .App {
 	.Home {
 		.main {
 			.content {
-				width: calc(100vw-70px);
-				min-height: calc(100vh-38px);
+				padding: 16px;
+				// min-height: 100vh;
+				margin-left: 70px;
+				width: 100%;
 				background-color: $grey-text-bg;
+				height: 100%;
 			}
 
 			.side-nav-bar.open ~ .content {

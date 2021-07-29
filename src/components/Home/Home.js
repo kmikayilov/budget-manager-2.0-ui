@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Switch, Route } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
+import { Switch, Route } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 
-import SideNavBar from '../SideNavBar/SideNavBar';
-import Header from '../Header/Header';
-import TransactionsList from '../TransactionsList/TransactionsList';
+import SideNavBar from "../SideNavBar/SideNavBar";
+import Header from "../Header/Header";
+import TransactionsList from "../TransactionsList/TransactionsList";
+import TransactionAdd from "../TransactionAdd/TransactionAdd";
 
-import './Home.scss';
+import "./Home.scss";
 
 const Home = ({ logout, user }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,9 @@ const Home = ({ logout, user }) => {
 				<Switch>
 					<Route path="/transactions" exact>
 						<TransactionsList />
+					</Route>
+					<Route path="/transactions/new" exact>
+						<TransactionAdd />
 					</Route>
 				</Switch>
 			</Grid>

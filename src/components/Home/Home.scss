@@ -2,6 +2,9 @@
 	min-height: 100vh;
 
 	.main {
-		min-height: calc(100vh - 48px);
+		// overflow-y: auto;
+		// min-height: 100vh;
+		margin-top: 48px;
+		height: 100%;
 	}
 }
