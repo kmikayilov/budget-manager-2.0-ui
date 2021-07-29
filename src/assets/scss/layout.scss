@@ -1,0 +1,17 @@
+@import './_colors.scss';
+
+.App {
+	.Home {
+		.main {
+			.content {
+				width: calc(100vw-70px);
+				min-height: calc(100vh-38px);
+				background-color: $grey-text-bg;
+			}
+
+			.side-nav-bar.open ~ .content {
+				margin-left: 300px;
+			}
+		}
+	}
+}

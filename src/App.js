@@ -1,15 +1,17 @@
-import './App.css';
+import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
+// import Header from './components/Header/Header';
 import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
 
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'; //useSelector, useDispatch, shallowEqual
 import Home from './components/Home/Home';
+import Landing from './components/Landing/Landing';
 // import api from './helpers/api';
-import { logout } from './helpers/state/authSlice';
-import { fetchLoggedUser } from './helpers/state/authSlice';
-import { loaded } from './helpers/state/commonSlice';
+// import { logout } from './helpers/state/authSlice';
+// import { fetchLoggedUser } from './helpers/state/authSlice';
+// import { loaded } from './helpers/state/commonSlice';
 
 function App() {
 	const dispatch = useDispatch();
@@ -35,15 +37,22 @@ function App() {
 
 	return (
 		<Router>
-			<div className='App'>
+			<div className="App">
 				<Switch>
-					<Route path='/sign-in'>
+					<Route exact path="/sign-up">
+						<SignUp />
+					</Route>
+					<Route exact path="/sign-in">
 						<SignIn />
 					</Route>
 					<Route
-						path='/'
+						path="/"
 						render={() =>
-							!user ? <Home logout={logoutHandler} user={user} /> : <SignIn />
+							!user ? (
+								<Home logout={logoutHandler} user={user} />
+							) : (
+								<Landing user={user} />
+							)
 						}
 					/>
 				</Switch>

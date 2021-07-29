@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
-import './Home.scss';
+
 import { Switch, Route } from 'react-router-dom';
-import { Row, Container } from 'react-bootstrap';
+import { Grid } from '@material-ui/core';
+
 import SideNavBar from '../SideNavBar/SideNavBar';
 import Header from '../Header/Header';
+import TransactionsList from '../TransactionsList/TransactionsList';
+
+import './Home.scss';
 
 const Home = ({ logout, user }) => {
-	const [isShown, setIsShown] = useState(false);
-	const toggle = () => setIsShown(!isShown);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div className='Home' data-testid='Home'>
-			<Header logout={logout} user={user} toggle={toggle} />
-			<Container fluid>
-				<Row>
-					<SideNavBar isShown={isShown} logout={logout} />
-					<Switch>
-						<Route path='/' exact>
-							{/* <ReceiptList /> */}
-						</Route>
-					</Switch>
-				</Row>
-			</Container>
+		<div className="Home" data-testid="Home">
+			<Header logout={logout} user={user} toggle={() => setIsOpen(!isOpen)} />
+			<Grid container className="main">
+				<SideNavBar isOpen={isOpen} />
+				<Switch>
+					<Route path="/transactions" exact>
+						<TransactionsList />
+					</Route>
+				</Switch>
+			</Grid>
 		</div>
 	);
 };

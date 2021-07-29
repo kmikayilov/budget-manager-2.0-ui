@@ -1,2 +1,92 @@
+@import '../../assets/scss/_colors.scss';
+
 .side-nav-bar {
+	width: 70px;
+	position: fixed;
+	top: 48px;
+	bottom: 0;
+	left: 0;
+	background-color: $component-bg;
+	transition: width 0.5s;
+	overflow: hidden;
+
+	&.open {
+		width: 250px;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0 0 0 16px;
+		margin-top: 30px;
+		li {
+			margin-bottom: 40px;
+			a {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				padding: 0;
+				color: $grey-text-bg;
+				border-bottom-left-radius: 16px;
+				border-top-left-radius: 16px;
+				transition: all 0.15s ease-out;
+				position: relative;
+
+				&:hover,
+				&.active {
+					b {
+						&:nth-child(1),
+						&:nth-child(2) {
+							position: absolute;
+							top: -20px;
+							height: 20px;
+							width: 100%;
+							background-color: $app-bg;
+
+							&::before {
+								content: '';
+								position: absolute;
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+								border-bottom-right-radius: 20px;
+								background-color: $component-bg;
+							}
+						}
+
+						&:nth-child(2) {
+							top: 51px;
+							&::before {
+								border-top-right-radius: 20px;
+								border-bottom-right-radius: 0;
+							}
+						}
+					}
+				}
+
+				&:hover {
+					color: $violet-active-text-bg;
+					background-color: $app-bg;
+					cursor: pointer;
+				}
+
+				&.active {
+					color: $violet-active-text-bg;
+					background-color: $app-bg;
+					cursor: auto;
+					border-color: $app-bg;
+				}
+
+				.icon {
+					padding: 12px;
+					margin-right: 10px;
+
+					svg {
+						width: 24px;
+						height: 24px;
+					}
+				}
+			}
+		}
+	}
 }

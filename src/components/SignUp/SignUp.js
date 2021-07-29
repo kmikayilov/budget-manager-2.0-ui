@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 
-import './SignIn.scss';
+import './SignUp.scss';
 import AuthModal from '../AuthModal/AuthModal';
 
-const SignIn = (props) => {
+const SignUp = (props) => {
 	const onSubmit = useCallback((data, { resetForm }) => {}, []);
 	return (
-		<div className="sign-in">
-			<AuthModal onSubmit={onSubmit} type="signin" />
+		<div className="sign-up">
+			<AuthModal onSubmit={onSubmit} type="signup" />
 		</div>
 	);
 };
 
-export default SignIn;
+export default SignUp;
