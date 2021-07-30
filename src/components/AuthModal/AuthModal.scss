@@ -45,64 +45,6 @@
 		}
 	}
 
-	form {
-		width: 100%;
-		height: fit-content;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin-top: 60px;
-		padding-bottom: 20px;
-		border-bottom: 2px solid #35404b;
-
-		.input {
-			border-radius: 16px;
-			color: #3c444e;
-			width: 100%;
-		}
-
-		.icon {
-			color: #3c444e;
-		}
-
-		.btn {
-			margin-top: 30px;
-			background-color: rgb(104, 142, 255);
-			border-radius: 16px;
-		}
-
-		.MuiFormHelperText-root {
-			color: $primary-red !important;
-		}
-
-		.MuiGrid-root {
-			fieldset {
-				top: 0px;
-				border-color: $grey-text-bg;
-				border-radius: 16px;
-			}
-
-			input {
-				color: $grey-text-bg;
-			}
-
-			label {
-				background-color: $component-bg;
-				padding: 0 8px;
-				color: $grey-text-bg;
-
-				&.MuiFormLabel-root.Mui-error {
-					color: $primary-red !important;
-				}
-
-				&.MuiFormLabel-root.Mui-focused {
-					color: $violet-active-text-bg;
-				}
-			}
-		}
-	}
-
 	.link {
 		color: $grey-text-bg;
 		cursor: pointer;

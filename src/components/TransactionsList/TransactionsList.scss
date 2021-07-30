@@ -1,2 +1,308 @@
-.transactions-list {
+@import '../../assets/scss/colors';
+
+.transaction-list-wrapper {
+	margin-top: 50px;
+	width: 90%;
+	.title-wrapper {
+		margin-bottom: 30px;
+		.title {
+			color: $chart-percentage-color;
+		}
+	}
+
+	.transactions-list {
+		position: relative;
+		background-color: $component-bg;
+		padding: 16px;
+		border-radius: 16px;
+		color: $grey-text-bg;
+		width: 100%;
+
+		.table-wrapper {
+			padding: 16px;
+			.react-bootstrap-table {
+				overflow: auto;
+				// overflow: auto;
+				margin-top: 50px;
+				.table {
+					border: 1px solid $border-color;
+					thead {
+						tr {
+							th {
+								vertical-align: middle;
+								height: 100%;
+								padding: 10px;
+								.table-head-col {
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									flex-direction: column;
+									width: 100%;
+									font-size: 14px;
+									.col-title {
+										display: flex;
+										flex-direction: row;
+										justify-content: space-between;
+										align-items: center;
+										margin-bottom: 10px;
+										color: $chart-percentage-color;
+										width: 100%;
+									}
+
+									.filter-label {
+										width: 100%;
+										.sr-only {
+											display: none;
+										}
+
+										input {
+											background-color: transparent;
+											border: 1px solid $border-color;
+											color: $chart-percentage-color;
+
+											@media (max-width: 450px) {
+												font-size: 13px;
+											}
+
+											@media (max-width: 350px) {
+												font-size: 12px;
+											}
+
+											&:focus {
+												outline: none;
+												box-shadow: 0 0 0 0.25rem
+													rgba(53, 64, 75, 0.25);
+											}
+
+											&::placeholder {
+												// color: $chart-percentage-color;
+												color: $grey-text-bg;
+
+												@media (max-width: 450px) {
+													font-size: 13px;
+												}
+
+												@media (max-width: 350px) {
+													font-size: 12px;
+												}
+											}
+										}
+
+										select {
+											background-color: transparent;
+											border: 1px solid $border-color;
+											color: $grey-text-bg;
+
+											&:focus {
+												outline: none;
+												box-shadow: 0 0 0 0.25rem
+													rgba(53, 64, 75, 0.25);
+											}
+
+											option {
+												background-color: $component-bg;
+												color: $grey-text-bg;
+												border: none;
+												outline: none;
+												padding: 0 10px;
+												-webkit-padding-end: 0;
+
+												&:hover {
+													background-color: $border-color;
+												}
+
+												// &[value] {
+												// 	color: red;
+												// 	font-weight: bold;
+												// }
+											}
+										}
+
+										// select > option[value='Select...']:checked {
+										// 	background: red;
+										// }
+									}
+
+									@media (max-width: 450px) {
+										font-size: 13px;
+									}
+
+									@media (max-width: 350px) {
+										font-size: 12px;
+									}
+								}
+
+								.icon-wrapper {
+									color: $chart-percentage-color;
+								}
+							}
+						}
+					}
+
+					tbody {
+						tr {
+							td {
+								font-size: 14px;
+								padding: 10px;
+								color: $grey-text-bg;
+
+								@media (max-width: 450px) {
+									font-size: 13px;
+								}
+
+								@media (max-width: 350px) {
+									font-size: 12px;
+								}
+							}
+						}
+					}
+				}
+
+				&-pagination {
+					margin-right: 0 !important;
+					margin-left: 0 !important;
+					margin-top: 20px;
+					color: $grey-text-bg;
+
+					.col-md-6 {
+						max-width: fit-content;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						padding: 0;
+
+						@media (min-width: 576px) {
+							width: fit-content;
+						}
+
+						&:nth-child(1) {
+							position: absolute;
+							top: 20px;
+							left: 32px;
+
+							.dropdown {
+								margin-right: 20px;
+								.btn {
+									width: 70px;
+									color: $grey-text-bg;
+									background-color: transparent;
+									border-color: $border-color;
+									display: flex;
+									justify-content: flex-start;
+									align-items: center;
+
+									&:after {
+										margin-left: 10px;
+									}
+
+									&:focus {
+										outline: 0;
+										box-shadow: 0 0 0 0.2rem rgba($border-color, 0.25);
+									}
+								}
+
+								&-menu {
+									right: 0;
+									padding: 0;
+									min-width: 100%;
+									background-color: $component-bg;
+
+									.dropdown-item {
+										color: $grey-text-bg;
+										padding: 0.375rem 0.75rem;
+
+										&:hover {
+											background-color: $border-color;
+										}
+									}
+								}
+							}
+
+							@media (max-width: 450px) {
+								font-size: 13px;
+								left: 16px;
+								.dropdown {
+									margin-right: 10px;
+									.btn {
+										width: 60px;
+										font-size: 13px;
+									}
+								}
+							}
+
+							@media (max-width: 350px) {
+								font-size: 12px;
+
+								.dropdown {
+									margin-right: 10px;
+									.btn {
+										width: 60px;
+										font-size: 12px;
+									}
+								}
+							}
+						}
+
+						&:nth-child(2) {
+							margin-left: auto;
+
+							.pagination {
+								margin-top: unset;
+								margin-bottom: unset;
+
+								.page-item {
+									&:not(:last-child) {
+										margin-right: 5px;
+									}
+									& .page-link {
+										border-radius: 5px;
+										border: 1px solid $border-color;
+										color: $grey-text-bg;
+										background-color: $component-bg;
+
+										&:hover {
+											color: $app-bg;
+											background-color: $violet-active-text-bg;
+										}
+
+										&:focus {
+											z-index: 3;
+											outline: 0;
+											box-shadow: 0 0 0 0.25rem
+												rgba($border-color, 0.25);
+										}
+									}
+
+									&.active {
+										& .page-link {
+											color: $app-bg;
+											background-color: $violet-active-text-bg;
+										}
+									}
+								}
+							}
+
+							@media (max-width: 450px) {
+								.pagination {
+									.page-item {
+										// width: 30px;
+
+										& .page-link {
+											padding: 5px 10px;
+											// width: 100%;
+											font-size: 11px;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			@media (max-width: 450px) {
+				padding: 0;
+			}
+		}
+	}
 }

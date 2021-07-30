@@ -38,7 +38,11 @@ const AuthModal = ({ onSubmit, type }) => {
 				enableReinitialize={true}>
 				{({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => {
 					return (
-						<form noValidate onSubmit={handleSubmit} autoComplete="off">
+						<form
+							className="form"
+							noValidate
+							onSubmit={handleSubmit}
+							autoComplete="off">
 							<Grid
 								style={{ marginBottom: '30px' }}
 								container

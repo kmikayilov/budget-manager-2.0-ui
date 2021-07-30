@@ -3,21 +3,21 @@ import { Box, Typography } from '@material-ui/core';
 
 import TransactionForm from '../TransactionForm/TransactionForm';
 
-import './TransactionAdd.scss';
+import './TransactionEdit.scss';
 
-const TransactionAdd = ({}) => {
+const TransactionEdit = ({}) => {
 	const onSubmit = useCallback((data, { resetForm }) => {}, []);
 
 	return (
 		<Box className="content">
-			<Box className="transaction-addition-wrapper">
+			<Box className="transaction-edition-wrapper">
 				<Box className="title">
-					<Typography variant="h6">Add new transaction</Typography>
+					<Typography variant="h6">Edit the transaction</Typography>
 				</Box>
-				<TransactionForm onSubmit={onSubmit} type="add" />
+				<TransactionForm onSubmit={onSubmit} type="edit" />
 			</Box>
 		</Box>
 	);
 };
 
-export default TransactionAdd;
+export default TransactionEdit;
