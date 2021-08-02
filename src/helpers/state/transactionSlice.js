@@ -1,12 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { transactionNormalizer } from '../utils';
-import api from '../api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { transactionNormalizer } from "../utils";
+import api from "../api";
 
 const initialState = {
 	isFetching: false,
 	filter: null,
 	page: 0,
-	fetchType: '', //delete
+	fetchType: "", //delete
 	transactions: null,
 	transactionCount: null,
 	transaction: null,
@@ -39,33 +39,31 @@ const initialState = {
 // 	return response;
 // });
 
-export const deleteTransaction = createAsyncThunk(
-	'transaction/delete',
-	async ({ id, data }, thunkAPI) => {
-		const response = await api.TransactionAPI.deleteTransaction({ id, data });
-		if (!!response.error)
-			return thunkAPI.rejectWithValue(response.error.errors || response.error);
-		return response;
-	}
-);
+export const filterTransactions = createAsyncThunk("transaction/filter", async (data, thunkAPI) => {
+	const response = await api.TransactionAPI.filterTransactions(data);
+	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
+	return response;
+});
 
-export const editTransaction = createAsyncThunk(
-	'transaction/edit',
-	async ({ id, data }, thunkAPI) => {
-		const response = await api.TransactionAPI.editTransaction({ id, data });
-		if (!!response.error)
-			return thunkAPI.rejectWithValue(response.error.errors || response.error);
-		return response;
-	}
-);
+export const deleteTransaction = createAsyncThunk("transaction/delete", async ({ id, data }, thunkAPI) => {
+	const response = await api.TransactionAPI.deleteTransaction({ id, data });
+	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
+	return response;
+});
 
-export const addTransaction = createAsyncThunk('transaction/create', async (data, thunkAPI) => {
+export const editTransaction = createAsyncThunk("transaction/edit", async ({ id, data }, thunkAPI) => {
+	const response = await api.TransactionAPI.editTransaction({ id, data });
+	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
+	return response;
+});
+
+export const addTransaction = createAsyncThunk("transaction/create", async (data, thunkAPI) => {
 	const response = await api.TransactionAPI.addTransaction(data);
 	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
 	return response;
 });
 
-export const fetchTransaction = createAsyncThunk('transaction/fetch', async (id, thunkAPI) => {
+export const fetchTransaction = createAsyncThunk("transaction/fetch", async (id, thunkAPI) => {
 	const response = await api.TransactionAPI.fetchTransaction(id);
 	if (!!response.error) return thunkAPI.rejectWithValue(response.error.Errors || response.error);
 	return response;
@@ -82,7 +80,7 @@ export const fetchTransaction = createAsyncThunk('transaction/fetch', async (id,
 // });
 
 const transactionSlice = createSlice({
-	name: 'transaction',
+	name: "transaction",
 	initialState: initialState,
 	reducers: {
 		clearTransaction(state) {
@@ -100,34 +98,39 @@ const transactionSlice = createSlice({
 		},
 	},
 	extraReducers: {
-		// [fetchTransactions.pending]: (state, action) => {
-		// 	state.isFetching = true;
-		// },
-		// [fetchTransactions.fulfilled]: (state, action) => {
-		// 	state.isFetching = false;
-		// 	state.transactions = action.payload.transactions;
-		// 	state.transactionsCount = action.payload.transactionsCount;
-		// 	state.error = null;
-		// },
-		// [fetchTransactions.rejected]: (state, action) => {
-		// 	state.isFetching = false;
-		// 	state.error = action.payload || action.error;
-		// },
-		// [editJobFamily.pending]: (state, action) => {
-		//     state.edit.isSaving = true;
-		//     state.edit.result = null;
-		//     state.edit.error = null;
-		// },
-		// [editJobFamily.fulfilled]: (state, action) => {
-		//     state.edit.isSaving = false;
-		//     state.edit.result = action.payload.result;
-		//     state.edit.error = null;
-		// },
-		// [editJobFamily.rejected]: (state, action) => {
-		//     state.edit.isSaving = false;
-		//     state.edit.result = null;
-		//     state.edit.error = action.payload || action.error;
-		// },
+		// filter transactions
+		[filterTransactions.pending]: (state, action) => {
+			state.isFetching = true;
+		},
+		[filterTransactions.fulfilled]: (state, action) => {
+			console.log(action);
+			state.isFetching = false;
+			state.transactions = action.payload.transactions;
+			state.transactionsCount = action.payload.transactionsCount;
+			state.error = null;
+		},
+		[filterTransactions.rejected]: (state, action) => {
+			state.isFetching = false;
+			state.error = action.payload || action.error;
+		},
+
+		// edit transaction
+		[editTransaction.pending]: (state, action) => {
+			state.edit.isSaving = true;
+			state.edit.result = null;
+			state.edit.error = null;
+		},
+		[editTransaction.fulfilled]: (state, action) => {
+			console.log(action);
+			state.edit.isSaving = false;
+			state.edit.result = action.payload;
+			state.edit.error = null;
+		},
+		[editTransaction.rejected]: (state, action) => {
+			state.edit.isSaving = false;
+			state.edit.result = null;
+			state.edit.error = action.payload || action.error;
+		},
 
 		// fetch transaction
 		[fetchTransaction.pending]: (state, action) => {
