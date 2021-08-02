@@ -8,7 +8,7 @@ const TransactionsTable = ({ data, headers, page, sizePerPage, totalSize, onTabl
 	return (
 		<div className="table-wrapper" data-testid="TransactionsTable">
 			<BootstrapTable
-				keyField="transactionId"
+				keyField="id"
 				data={data || []}
 				columns={headers}
 				noDataIndication={() => <div class="text-center">No data</div>}

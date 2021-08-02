@@ -2,8 +2,8 @@
 
 .side-nav-bar {
 	width: 70px;
-	position: fixed;
-	top: 48px;
+	position: absolute;
+	top: 0;
 	bottom: 0;
 	left: 0;
 	background-color: $component-bg;
@@ -34,7 +34,7 @@
 				color: $grey-text-bg;
 				border-bottom-left-radius: 16px;
 				border-top-left-radius: 16px;
-				transition: all 0.15s ease-out;
+				transition: all 0.5s;
 				position: relative;
 				white-space: nowrap;
 

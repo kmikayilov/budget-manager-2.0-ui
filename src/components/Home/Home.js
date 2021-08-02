@@ -26,7 +26,7 @@ const Home = ({ logout, user }) => {
 					<Route path="/transactions/new" exact>
 						<TransactionAdd />
 					</Route>
-					<Route path="/transactions/:id" exact>
+					<Route path="/transaction/:id" exact>
 						<TransactionEdit />
 					</Route>
 				</Switch>

@@ -1,58 +1,183 @@
-// @import './_colors.scss';
+@import './_colors.scss';
 
-.form {
-	width: 100%;
-	height: fit-content;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 60px;
-	padding-bottom: 20px;
-	border-bottom: 2px solid #35404b;
-
-	.input {
-		border-radius: 16px;
-		color: #3c444e;
+.sign-in,
+.sign-up {
+	& .form {
 		width: 100%;
-	}
+		height: fit-content;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-top: 60px;
+		padding-bottom: 20px;
+		border-bottom: 2px solid #35404b;
 
-	.icon {
-		color: #3c444e;
-	}
+		.input {
+			border-radius: 16px;
+			color: #3c444e;
+			width: 100%;
+		}
 
-	.btn {
-		margin-top: 30px;
-		background-color: rgb(104, 142, 255);
-		border-radius: 16px;
-	}
+		.icon {
+			color: #3c444e;
+		}
 
-	.MuiFormHelperText-root {
-		color: $primary-red !important;
-	}
-
-	.MuiGrid-root {
-		fieldset {
-			top: 0px;
-			border-color: $grey-text-bg;
+		.btn {
+			margin-top: 30px;
+			background-color: rgb(104, 142, 255);
 			border-radius: 16px;
 		}
 
-		input {
-			color: $grey-text-bg;
+		.MuiFormHelperText-root {
+			color: $primary-red !important;
 		}
 
-		label {
-			background-color: $component-bg;
-			padding: 0 8px;
-			color: $grey-text-bg;
-
-			&.MuiFormLabel-root.Mui-error {
-				color: $primary-red !important;
+		.MuiGrid-root {
+			fieldset {
+				top: 0px;
+				border-color: $grey-text-bg;
+				border-radius: 16px;
 			}
 
-			&.MuiFormLabel-root.Mui-focused {
-				color: $violet-active-text-bg;
+			input {
+				color: $grey-text-bg;
+			}
+
+			label {
+				background-color: $component-bg;
+				padding: 0 8px;
+				color: $grey-text-bg;
+
+				&.MuiFormLabel-root.Mui-error {
+					color: $primary-red !important;
+				}
+
+				&.MuiFormLabel-root.Mui-focused {
+					color: $violet-active-text-bg;
+				}
+			}
+		}
+	}
+}
+
+//--------------------------------------------------------------------
+
+.transaction-addition-wrapper,
+.transaction-edition-wrapper {
+	.form {
+		border-radius: 16px;
+		background-color: $component-bg;
+		border-bottom: none;
+		padding: 20px;
+		margin-top: 30px;
+
+		.row {
+			.col {
+				.form-group {
+					margin-bottom: 20px;
+					.form-label {
+						color: $chart-percentage-color;
+						font-weight: 600;
+						font-size: 14px;
+					}
+
+					input {
+						background-color: $component-bg;
+						border: 1px solid $border-color;
+						color: $chart-percentage-color;
+
+						&:focus {
+							box-shadow: 0 0 0 0.25rem rgba(53, 64, 75, 0.25);
+						}
+					}
+
+					.invalid-feedback {
+						display: block;
+						text-align: center;
+						font-size: 12px;
+					}
+
+					.react-datepicker-wrapper {
+						height: 38px;
+						width: 100%;
+						border-radius: 0.25rem;
+
+						.react-datepicker__input-container {
+							height: 100%;
+							border-radius: 0.25rem;
+
+							input {
+								width: 100%;
+								height: 100%;
+								border-radius: 0.25rem;
+								padding: 0.375rem 0.75rem;
+
+								&:focus {
+									outline: none;
+								}
+							}
+						}
+					}
+
+					.select {
+						&__control {
+							background-color: $component-bg;
+							border: 1px solid $border-color;
+							box-shadow: none;
+
+							&:focus {
+								box-shadow: 0 0 0 0.25rem rgba(53, 64, 75, 0.25);
+							}
+						}
+
+						&__value-container {
+						}
+
+						&__placeholder {
+						}
+
+						&__indicators {
+							.select__indicator-separator {
+								background-color: $border-color;
+							}
+
+							.select__indicator {
+								color: $border-color;
+							}
+						}
+
+						&__single-value {
+							color: $chart-percentage-color;
+						}
+
+						&__menu {
+							background-color: $component-bg;
+							color: $chart-percentage-color;
+						}
+					}
+				}
+			}
+			&.btn-wrapper {
+				margin-left: auto;
+				margin-right: 0px;
+				transition: all 0.5s;
+
+				.btn {
+					border-color: $violet-active-text-bg;
+					background-color: $component-bg;
+					color: $violet-active-text-bg;
+
+					&:hover {
+						background-color: $violet-active-text-bg;
+						color: $app-bg;
+					}
+
+					&:focus {
+						outline: none;
+						box-shadow: 0 0 0 0.25rem rgba(104, 142, 255, 0.25);
+					}
+				}
 			}
 		}
 	}

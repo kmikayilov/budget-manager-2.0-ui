@@ -11,7 +11,7 @@ import Landing from './components/Landing/Landing';
 // import api from './helpers/api';
 // import { logout } from './helpers/state/authSlice';
 // import { fetchLoggedUser } from './helpers/state/authSlice';
-// import { loaded } from './helpers/state/commonSlice';
+import { loaded } from './helpers/state/commonSlice';
 
 function App() {
 	const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function App() {
 			// dispatch(fetchLoggedUser());
 		}
 		// api.setLogoutFn(() => dispatch(logout()));
-		// dispatch(loaded());
+		dispatch(loaded());
 	}, [dispatch]);
 
 	const logoutHandler = useCallback(() => {

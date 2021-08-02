@@ -42,9 +42,9 @@ export const baseColStyle = {
 
 //------------------------------------------------------
 
-// export function isOkId(row) {
-//     return !!row && !!row.id && typeof row.id === "number" && row.id > 0;
-// }
+export function isOkId(row) {
+	return !!row && !!row.id && typeof row.id === 'number' && row.id > 0;
+}
 
 export const editFormatterHeader = () => (
 	<div className="icon-wrapper">
@@ -57,7 +57,7 @@ export const editFormatter = () => (
 	</div>
 );
 export const addNewFormatterHeader = () => (
-	<div className="icon-wrapper">
+	<div className="icon-wrapper" style={{ cursor: 'pointer' }}>
 		<AddIcon />
 	</div>
 );
@@ -77,3 +77,28 @@ export const deleteFormatter = () => (
 		<DeleteIcon />
 	</div>
 );
+
+export const categoriesOptions = {
+	1: 'Transportation',
+	2: 'Entertainment',
+	3: 'Rent',
+	4: 'Phone',
+	5: 'Food',
+	6: 'Restaurant',
+	7: 'Cinema',
+	8: 'Theater',
+	9: 'Gas',
+	10: 'Postage',
+	11: 'Travel',
+	12: 'Leasure',
+	13: 'Salary',
+	14: 'Scholarship',
+	15: 'Pocket money',
+};
+
+export const paymentOptions = {
+	1: 'Cash',
+	2: 'Check',
+	3: 'Bank card',
+	4: 'Bank transfer',
+};

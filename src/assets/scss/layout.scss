@@ -1,19 +1,47 @@
-// @import './_colors.scss';
+@import './_colors.scss';
 
 .App {
 	.Home {
+		height: 100%;
 		overflow: hidden;
 		.main {
+			height: 100%;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			margin-top: 44px;
 			.content {
 				padding: 16px;
 				margin-left: 70px;
-				width: calc(100% - 70px);
-				height: 100%;
+				width: 100%;
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
 				align-items: center;
-				transition: margin-left 0.5s;
+				transition: all 0.5s;
+				padding-bottom: 100px !important;
+
+				overflow-y: auto;
+				height: 100%;
+
+				&::-webkit-scrollbar {
+					width: 7px;
+					height: 7px;
+				}
+
+				&::-webkit-scrollbar-button {
+					display: none;
+				}
+
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					background: $chart-percentage-color;
+				}
+
+				&::-webkit-scrollbar-track {
+					background: $component-bg;
+				}
 			}
 
 			.side-nav-bar.open ~ .content {

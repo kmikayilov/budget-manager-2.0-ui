@@ -1,14 +1,45 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { headers } from './tableConfig';
+import { headers, setHistory } from './tableConfig';
 import TransactionsTable from './TransactionsTable';
 import './TransactionsList.scss';
 import { Typography, Box } from '@material-ui/core';
 
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'; //useSelector, useDispatch, shallowEqual
+import { useHistory } from 'react-router-dom';
+import { fetchTransactions } from '../../helpers/state/listsSlice';
+import { setFetchType } from '../../helpers/state/transactionSlice';
+import TransactionDelete from '../TransactionDelete/TransactionDelete';
+
 const TransactionsList = ({}) => {
 	const [pageSize, setPageSize] = useState(10);
 	const [currentPage, setCurrentPage] = useState(1);
+	// const [transactionData, setTransactionData] = useState([]);
 	const [sortData, setSortData] = useState({ sortField: '', sortOrder: '' });
 	const [filtersData, setFiltersData] = useState(null);
+
+	const dispatch = useDispatch();
+	const transactions = useSelector((state) => state.lists.transactions.data, shallowEqual);
+	const transactionsCount = useSelector((state) => state.lists.transactions.count, shallowEqual);
+	const isAppLoading = useSelector((state) => state.common.isLoading, shallowEqual);
+
+	//----------------------------------
+
+	const isShownDelete = useSelector(
+		(state) => state.transaction.fetchType === 'delete' && !!state.transaction.transaction,
+		shallowEqual
+	);
+
+	const onDeleteClose = useCallback(() => {
+		dispatch(setFetchType(''));
+	}, [dispatch]);
+
+	//---------------------------------------
+
+	useEffect(() => {
+		if (!transactions && !isAppLoading) {
+			dispatch(fetchTransactions());
+		}
+	}, [transactions, isAppLoading, dispatch]);
 
 	//'filter' | 'pagination' | 'sort' | 'cellEdit'
 	const handleTableChange = useCallback(
@@ -89,8 +120,12 @@ const TransactionsList = ({}) => {
 		// isAppLoading
 	]);
 
+	const history = useHistory();
+	setHistory(history);
+
 	return (
 		<div className="content">
+			<TransactionDelete isShown={isShownDelete} handleClose={onDeleteClose} />
 			<div class="transaction-list-wrapper">
 				<Box className="title-wrapper">
 					<Typography variant="h6" className="title">
@@ -99,11 +134,11 @@ const TransactionsList = ({}) => {
 				</Box>
 				<div className="transactions-list">
 					<TransactionsTable
-						data={[]}
+						data={transactions || []}
 						headers={headers}
 						page={currentPage}
 						sizePerPage={pageSize}
-						totalSize={100}
+						totalSize={transactionsCount || 0}
 						onTableChange={handleTableChange}
 					/>
 				</div>

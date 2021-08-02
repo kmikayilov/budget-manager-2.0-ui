@@ -1,8 +1,6 @@
 import { selectFilter, textFilter, Comparator } from 'react-bootstrap-table2-filter';
-
-import React from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Nav } from 'react-bootstrap';
+import store from '../../helpers/state/store';
+import { setFetchType, fetchTransaction } from '../../helpers/state/transactionSlice';
 
 import {
 	headerFormatter,
@@ -12,71 +10,23 @@ import {
 	deleteFormatter,
 	deleteFormatterHeader,
 	editFormatterHeader,
+	categoriesOptions,
+	paymentOptions,
+	isOkId,
 } from '../../helpers/table';
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faDownload, faListAlt } from '@fortawesome/free-solid-svg-icons';
-// import React from 'react';
-// import { LinkContainer } from 'react-router-bootstrap';
-// import { Nav } from 'react-bootstrap';
-// import { setFetchType, fetchReceipt } from '../../helpers/state/receiptSlice';
-// import store from '../../helpers/state/store';
+let _history = null;
 
-// const subscriberTypeFormatter = (cell) => {
-// 	switch (cell) {
-// 		case 'ALL':
-// 			return 'HAMISI';
-// 		case 'ISTIXANA':
-// 			return 'İSTİXANA';
-// 		case 'QAHALI':
-// 			return 'QAHALI';
-// 		default:
-// 			return cell;
-// 	}
-// };
-
-const packagesOptionsFormatter = (column, colIndex, { sortElement, filterElement }) => {
-	return (
-		<React.Fragment>
-			<LinkContainer
-				to="#"
-				className="tableLink download"
-				// onClick={() => {
-				// 	store.dispatch(setFetchType('download'));
-				// 	store.dispatch(fetchReceipt(colIndex.receiptId));
-				// }}
-			>
-				<Nav.Link>
-					{/* <FontAwesomeIcon icon={faDownload} /> */}
-					<span className="ml-2">Yüklə</span>
-				</Nav.Link>
-			</LinkContainer>
-			<LinkContainer
-				to={`/receipts/${colIndex.receiptId}`}
-				className="tableLink details"
-				// onClick={() => {
-				// 	store.dispatch(fetchReceipt(colIndex.receiptId));
-				// }}
-			>
-				<Nav.Link>
-					{/* <FontAwesomeIcon icon={faListAlt} /> */}
-					<span className="ml-2">Ətraflı</span>
-				</Nav.Link>
-			</LinkContainer>
-		</React.Fragment>
-	);
-};
+export const setHistory = (history) => (_history = history);
 
 export const headers = [
 	{
-		dataField: 'transactionId',
+		dataField: 'id',
 		text: 'Id',
 		sort: true,
 		headerFormatter: headerFormatter,
 		filter: textFilter({ comparator: Comparator.LIKE, placeholder: 'Enter id' }),
-		headerStyle: { 'min-width': '80px' },
-		// style: { 'min-width': '100px' },
-		// style: baseColStyle,
+		headerStyle: { minWidth: '80px' },
 	},
 	{
 		dataField: 'transactionDate',
@@ -87,8 +37,7 @@ export const headers = [
 			comparator: Comparator.LIKE,
 			placeholder: 'Enter the transaction date',
 		}),
-		// style: baseColStyle,
-		headerStyle: { 'min-width': '160px' },
+		headerStyle: { minWidth: '160px' },
 	},
 	{
 		dataField: 'transactionAmount',
@@ -100,64 +49,47 @@ export const headers = [
 			placeholder: 'Enter the transaction amount',
 		}),
 		// style: baseColStyle,
-		headerStyle: { 'min-width': '190px' },
+		headerStyle: { minWidth: '190px' },
 	},
 	{
-		dataField: 'categoryId',
+		dataField: 'category_name',
 		text: 'Category',
 		sort: true,
 		headerFormatter: headerFormatter,
-		// formatter: applicationTypeFormatter,
-		// filter: textFilter({ comparator: Comparator.LIKE, placeholder: 'İdni daxil edin' }),
 		filter: selectFilter({
-			options: {
-				ALL: 'HAMISI',
-				ITRON: 'İTRON',
-				AGIS: 'AGİS',
-			},
+			options: categoriesOptions,
 			placeholder: 'Select...',
 			className: 'form-select',
 		}),
-		// style: baseColStyle,
-		headerStyle: { 'min-width': '120px' },
+		headerStyle: { minWidth: '120px' },
 	},
 	{
-		dataField: 'paymentMethodId',
+		dataField: 'payment_method',
 		text: 'Payment method',
 		sort: true,
 		headerFormatter: headerFormatter,
-		// formatter: applicationTypeFormatter,
-		// filter: textFilter({ comparator: Comparator.LIKE, placeholder: 'İdni daxil edin' }),
 		filter: selectFilter({
-			options: {
-				ALL: 'HAMISI',
-				ITRON: 'İTRON',
-				AGIS: 'AGİS',
-			},
+			options: paymentOptions,
 			placeholder: 'Select...',
 			className: 'form-select',
 		}),
 		// style: baseColStyle,
-		headerStyle: { 'min-width': '160px' },
+		headerStyle: { minWidth: '160px' },
 	},
 	{
-		dataField: 'accountingTypeId',
+		dataField: 'accounting_type',
 		text: 'Accounting type',
 		sort: true,
 		headerFormatter: headerFormatter,
-		// formatter: applicationTypeFormatter,
-		// filter: textFilter({ comparator: Comparator.LIKE, placeholder: 'İdni daxil edin' }),
 		filter: selectFilter({
 			options: {
-				ALL: 'HAMISI',
-				ITRON: 'İTRON',
-				AGIS: 'AGİS',
+				1: 'Income',
+				2: 'Expense',
 			},
 			placeholder: 'Select...',
 			className: 'form-select',
 		}),
-		// style: baseColStyle,
-		headerStyle: { 'min-width': '160px' },
+		headerStyle: { minWidth: '160px' },
 	},
 	{
 		dataField: 'new',
@@ -165,21 +97,16 @@ export const headers = [
 		isDummyField: true,
 		headerFormatter: addNewFormatterHeader,
 		formatter: addNewFormatter,
-		// headerStyle: viewEditHeaderStyle,
 		editable: false,
-		headerStyle: { 'min-width': '45px' },
+		headerStyle: { minWidth: '45px' },
 		events: {
 			onClick: (e, column, columnIndex, row, rowIndex) => {
-				console.log('body new');
-				// if (isOkId(row)) {
-				// 	_history.push('/job-family/new');
-				// }
+				_history.push('/transactions/new');
 			},
 		},
 		headerEvents: {
 			onClick: (e, column, columnIndex) => {
-				console.log('header new');
-				// _history.push('/job-family/new'),
+				_history.push('/transactions/new');
 			},
 		},
 	},
@@ -189,15 +116,14 @@ export const headers = [
 		isDummyField: true,
 		headerFormatter: editFormatterHeader,
 		formatter: editFormatter,
-		// headerStyle: viewEditHeaderStyle,
 		editable: false,
-		headerStyle: { 'min-width': '45px' },
+		headerStyle: { minWidth: '45px' },
 		events: {
 			onClick: (e, column, columnIndex, row, rowIndex) => {
-				console.log('body edit');
-				// if (isOkId(row)) {
-				//     _history.push("/job-family/edit/" + row.id);
-				// }
+				if (isOkId(row)) {
+					_history.push('/transaction/' + row.id);
+					store.dispatch(fetchTransaction(row.id));
+				}
 			},
 		},
 	},
@@ -209,13 +135,14 @@ export const headers = [
 		formatter: deleteFormatter,
 		// headerStyle: viewEditHeaderStyle,
 		editable: false,
-		headerStyle: { 'min-width': '45px' },
+		headerStyle: { minWidth: '45px' },
 		events: {
 			onClick: (e, column, columnIndex, row, rowIndex) => {
-				console.log('body delete');
-				// if (isOkId(row)) {
-				//     _history.push("/job-family/edit/" + row.id);
-				// }
+				console.log(row);
+				if (isOkId(row)) {
+					store.dispatch(setFetchType('delete'));
+					store.dispatch(fetchTransaction(row.id));
+				}
 			},
 		},
 	},
