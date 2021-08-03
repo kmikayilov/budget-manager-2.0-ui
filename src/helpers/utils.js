@@ -17,3 +17,11 @@ export const transactionNormalizer = (data) => ({
 	payment_id: data.payment.id,
 	payment_method: data.payment.method,
 });
+
+export const categoryNormalizer = (data) => ({
+	id: data.id,
+	category_name: data.category,
+	accounting_id: data.accounting.id,
+	accounting_type: data.accounting.accounting_type,
+	accounting_coefficient: data.accounting.coefficient,
+});

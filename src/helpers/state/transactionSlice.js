@@ -1,12 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { transactionNormalizer } from "../utils";
-import api from "../api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { transactionNormalizer } from '../utils';
+import api from '../api';
 
 const initialState = {
 	isFetching: false,
 	filter: null,
 	page: 0,
-	fetchType: "", //delete
+	fetchType: '', //delete
 	transactions: null,
 	transactionCount: null,
 	transaction: null,
@@ -23,64 +23,46 @@ const initialState = {
 	},
 };
 
-// export const fetchTransactions = createAsyncThunk('transactions/fetch', async (_, thunkAPI) => {
-// 	const state = thunkAPI.getState();
-// 	const filter = state.transaction.filter;
-// 	const page = state.transaction.page;
-// 	const transactionsList = state.transaction.transactions;
-// 	const response = await api.TransactionAPI.selectTransactions({
-// 		filter,
-// 		page,
-// 		transactionsList,
-// 	});
-// 	if (!!response.authError) return thunkAPI.rejectWithValue(response);
-// 	if (!!response.error) return thunkAPI.rejectWithValue(response.error.Errors || response.error);
-
-// 	return response;
-// });
-
-export const filterTransactions = createAsyncThunk("transaction/filter", async (data, thunkAPI) => {
+export const filterTransactions = createAsyncThunk('transaction/filter', async (data, thunkAPI) => {
 	const response = await api.TransactionAPI.filterTransactions(data);
 	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
 	return response;
 });
 
-export const deleteTransaction = createAsyncThunk("transaction/delete", async ({ id, data }, thunkAPI) => {
-	const response = await api.TransactionAPI.deleteTransaction({ id, data });
-	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
-	return response;
-});
-
-export const editTransaction = createAsyncThunk("transaction/edit", async ({ id, data }, thunkAPI) => {
-	const response = await api.TransactionAPI.editTransaction({ id, data });
-	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
-	return response;
-});
-
-export const addTransaction = createAsyncThunk("transaction/create", async (data, thunkAPI) => {
+export const addTransaction = createAsyncThunk('transaction/create', async (data, thunkAPI) => {
 	const response = await api.TransactionAPI.addTransaction(data);
 	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors || response.error);
 	return response;
 });
 
-export const fetchTransaction = createAsyncThunk("transaction/fetch", async (id, thunkAPI) => {
+export const fetchTransaction = createAsyncThunk('transaction/fetch', async (id, thunkAPI) => {
 	const response = await api.TransactionAPI.fetchTransaction(id);
 	if (!!response.error) return thunkAPI.rejectWithValue(response.error.Errors || response.error);
 	return response;
 });
 
-// export const editJobFamily = createAsyncThunk('jobFamily/edit', async ({ id, data }, thunkAPI) => {
-// 	const response = await api.TransactionAPI.editJobFamily({ id, data });
-// 	if (!!response.error) {
-// 		return thunkAPI.rejectWithValue(response.error.errors || response.error);
-// 	} else if (!!response.errors) {
-// 		return thunkAPI.rejectWithValue(response.errors);
-// 	}
-// 	return { result: response.jobFamily };
-// });
+export const editTransaction = createAsyncThunk(
+	'transaction/edit',
+	async ({ id, data }, thunkAPI) => {
+		const response = await api.TransactionAPI.editTransaction({ id, data });
+		if (!!response.error)
+			return thunkAPI.rejectWithValue(response.error.errors || response.error);
+		return response;
+	}
+);
+
+export const deleteTransaction = createAsyncThunk(
+	'transaction/delete',
+	async ({ id, data }, thunkAPI) => {
+		const response = await api.TransactionAPI.deleteTransaction({ id, data });
+		if (!!response.error)
+			return thunkAPI.rejectWithValue(response.error.errors || response.error);
+		return response;
+	}
+);
 
 const transactionSlice = createSlice({
-	name: "transaction",
+	name: 'transaction',
 	initialState: initialState,
 	reducers: {
 		clearTransaction(state) {
@@ -104,9 +86,16 @@ const transactionSlice = createSlice({
 		},
 		[filterTransactions.fulfilled]: (state, action) => {
 			console.log(action);
+
+			let transactions = action.payload.transactions;
+			let data = [];
+
+			if (transactions)
+				transactions.forEach((item, i) => data.push(transactionNormalizer(item)));
+
 			state.isFetching = false;
-			state.transactions = action.payload.transactions;
-			state.transactionsCount = action.payload.transactionsCount;
+			state.transactions = data;
+			state.transactionCount = action.payload.transactionCount;
 			state.error = null;
 		},
 		[filterTransactions.rejected]: (state, action) => {

@@ -1,53 +1,43 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { headers, setHistory } from "./tableConfig";
-import TransactionsTable from "./TransactionsTable";
-import "./TransactionsList.scss";
-import { Typography, Box } from "@material-ui/core";
+import React, { useState, useCallback, useEffect } from 'react';
+import { headers, setHistory } from './tableConfig';
+import TransactionsTable from './TransactionsTable';
+import './TransactionsList.scss';
+import { Typography, Box } from '@material-ui/core';
 
-import { useSelector, shallowEqual, useDispatch } from "react-redux"; //useSelector, useDispatch, shallowEqual
-import { useHistory } from "react-router-dom";
-import { filterTransactions } from "../../helpers/state/transactionSlice";
-import { fetchTransactions } from "../../helpers/state/listsSlice";
-import { setFetchType } from "../../helpers/state/transactionSlice";
-import TransactionDelete from "../TransactionDelete/TransactionDelete";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'; //useSelector, useDispatch, shallowEqual
+import { useHistory } from 'react-router-dom';
+import { filterTransactions } from '../../helpers/state/transactionSlice';
+import { fetchTransactions } from '../../helpers/state/listsSlice';
+import { setFetchType } from '../../helpers/state/transactionSlice';
+import TransactionDelete from '../TransactionDelete/TransactionDelete';
 
 const TransactionsList = ({}) => {
 	const [pageSize, setPageSize] = useState(10);
 	const [currentPage, setCurrentPage] = useState(1);
 	// const [transactionData, setTransactionData] = useState([]);
-	const [sortData, setSortData] = useState({ sortField: "", sortOrder: "" });
+	const [sortData, setSortData] = useState({ sortField: '', sortOrder: '' });
 	const [filtersData, setFiltersData] = useState(null);
 
 	const dispatch = useDispatch();
-	const transactions = useSelector((state) => state.lists.transactions.data, shallowEqual);
-	const transactionsCount = useSelector((state) => state.lists.transactions.count, shallowEqual);
+	const transactions = useSelector((state) => state.transaction.transactions, shallowEqual);
+	const transactionCount = useSelector(
+		(state) => state.transaction.transactionCount,
+		shallowEqual
+	);
 	const isAppLoading = useSelector((state) => state.common.isLoading, shallowEqual);
 
 	//----------------------------------
 
-	const isShownDelete = useSelector((state) => state.transaction.fetchType === "delete" && !!state.transaction.transaction, shallowEqual);
+	const isShownDelete = useSelector(
+		(state) => state.transaction.fetchType === 'delete' && !!state.transaction.transaction,
+		shallowEqual
+	);
 
 	const onDeleteClose = useCallback(() => {
-		dispatch(setFetchType(""));
+		dispatch(setFetchType(''));
 	}, [dispatch]);
 
 	//---------------------------------------
-
-	useEffect(() => {
-		if (!transactions && !isAppLoading) {
-			const sortQuery = !!sortData.sortField ? sortData : {};
-			const query = {
-				limit: pageSize,
-				offset: Math.max(currentPage * pageSize - pageSize, 0),
-				...sortQuery,
-				filters: filtersData,
-			};
-
-			dispatch(filterTransactions(query));
-
-			dispatch(fetchTransactions());
-		}
-	}, [transactions, isAppLoading, dispatch]);
 
 	//'filter' | 'pagination' | 'sort' | 'cellEdit'
 	const handleTableChange = useCallback(
@@ -63,20 +53,20 @@ const TransactionsList = ({}) => {
 			// 	data
 			// );
 
-			let arr = ["category_id", "payment_id", "accounting_id"];
+			let arr = ['category_id', 'payment_id', 'accounting_id'];
 
 			for (let filter in filters) {
 				arr.forEach((el, i) => {
 					if (filter === el) {
 						let str = `select-filter-column-${el}`;
 						let select = document.getElementById(str);
-						select.style.color = "#28acc0";
+						select.style.color = '#28acc0';
 					}
 				});
 			}
 
 			switch (type) {
-				case "pagination":
+				case 'pagination':
 					if (currentPage !== page) {
 						setCurrentPage(page);
 					}
@@ -84,10 +74,10 @@ const TransactionsList = ({}) => {
 						setPageSize(sizePerPage);
 					}
 					break;
-				case "sort":
+				case 'sort':
 					setSortData({ sortField, sortOrder });
 					break;
-				case "filter":
+				case 'filter':
 					if (filters !== filtersData) {
 						let f = {};
 						for (let key in filters) {
@@ -114,7 +104,7 @@ const TransactionsList = ({}) => {
 			limit: pageSize,
 			offset: Math.max(currentPage * pageSize - pageSize, 0),
 			...sortQuery,
-			filters: filtersData,
+			filters: filtersData || {},
 		};
 
 		dispatch(filterTransactions(query));
@@ -145,7 +135,7 @@ const TransactionsList = ({}) => {
 						headers={headers}
 						page={currentPage}
 						sizePerPage={pageSize}
-						totalSize={transactionsCount || 0}
+						totalSize={transactionCount || 0}
 						onTableChange={handleTableChange}
 					/>
 				</div>

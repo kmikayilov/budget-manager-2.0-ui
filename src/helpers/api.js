@@ -122,9 +122,10 @@ const TransactionAPI = {
 };
 
 const AuthAPI = {
-	login: (username, password) =>
+	loginUser: (username, password) =>
 		FetchAPI.postJson('auth/login', { user: { username, password } }),
-	fetchUser: () => FetchAPI.get('auth'),
+	fetchUser: () => FetchAPI.get('auth/user'),
+	registerUser: (data) => FetchAPI.postJson('auth/register', data),
 };
 
 const ListsAPI = {

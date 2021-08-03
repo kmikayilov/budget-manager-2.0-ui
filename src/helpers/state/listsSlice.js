@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { categoryNormalizer, transactionNormalizer } from '../utils';
 import api from '../api';
-import { transactionNormalizer } from '../utils';
 
 const initialState = {
 	transactions: { isFetching: false, data: null, error: null, count: 0 },
@@ -63,11 +63,9 @@ const listsSlice = createSlice({
 			let transactions = action.payload.transactions;
 			let data = [];
 
-			if (transactions) {
-				transactions.forEach((item, i) => {
-					data.push(transactionNormalizer(item));
-				});
-			}
+			if (transactions)
+				transactions.forEach((item, i) => data.push(transactionNormalizer(item)));
+
 			state.transactions.isFetching = false;
 			state.transactions.data = data;
 			state.transactions.count = action.payload.transactionsCount;
@@ -87,17 +85,8 @@ const listsSlice = createSlice({
 			let categories = action.payload.categories;
 			let data = [];
 
-			if (categories) {
-				categories.forEach((item, i) => {
-					data.push({
-						id: item.id,
-						category_name: item.category,
-						accounting_id: item.accounting.id,
-						accounting_type: item.accounting.accounting_type,
-						accounting_coefficient: item.accounting.coefficient,
-					});
-				});
-			}
+			if (categories) categories.forEach((item, i) => data.push(categoryNormalizer(item)));
+
 			state.categories.isFetching = false;
 			state.categories.data = data;
 			state.categories.count = action.payload.categoriesCount;
