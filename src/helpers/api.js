@@ -135,6 +135,11 @@ const ListsAPI = {
 	selectAccountings: () => FetchAPI.get('accountings'),
 };
 
+const AnalysisAPI = {
+	selectCategoriesDonutChart: () => FetchAPI.get('analysis/categories-donut-chart'),
+	selectIncomeExpenseBarChart: () => FetchAPI.get('analysis/income-expense-bar-chart'),
+};
+
 export default {
 	setToken,
 	setLogoutFn,
@@ -142,5 +147,6 @@ export default {
 	AuthAPI,
 	ListsAPI,
 	FetchAPI,
+	AnalysisAPI,
 	TransactionAPI,
 };

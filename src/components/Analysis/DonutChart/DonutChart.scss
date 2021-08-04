@@ -1,0 +1,17 @@
+@import '../../../assets/scss/colors';
+
+.apexcharts-legend-series {
+	display: flex;
+	// justify-content: center;
+	align-items: center;
+	margin-bottom: 10px !important;
+
+	.apexcharts-legend-marker {
+		margin-right: 5px !important;
+	}
+
+	.apexcharts-legend-text {
+		height: fit-content;
+		color: $grey-text-bg;
+	}
+}

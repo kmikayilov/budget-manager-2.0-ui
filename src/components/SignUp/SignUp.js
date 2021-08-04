@@ -22,6 +22,7 @@ toast.configure();
 const SignUp = (props) => {
 	const dispatch = useDispatch();
 	const _history = useHistory();
+
 	// const categories = useSelector((state) => state.lists.categories.data, shallowEqual);
 	// const payments = useSelector((state) => state.lists.payments.data, shallowEqual);
 	// const isAppLoading = useSelector((state) => state.common.isLoading, shallowEqual);
