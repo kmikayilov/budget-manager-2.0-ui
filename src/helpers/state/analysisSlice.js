@@ -41,7 +41,7 @@ const analysisSlice = createSlice({
 		},
 		[selectCategoriesDonutChart.fulfilled]: (state, action) => {
 			state.isFetching = false;
-			state.categoriesDonutChart.data = { ...action.payload };
+			state.categoriesDonutChart.data = [...action.payload];
 			state.error = null;
 		},
 		[selectCategoriesDonutChart.rejected]: (state, action) => {
