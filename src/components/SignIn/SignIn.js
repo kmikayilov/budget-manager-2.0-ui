@@ -3,38 +3,43 @@ import { Formik } from 'formik';
 import { schema, initialValue } from './schema';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Box, Button, FormHelperText, Grid, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import { loginUser } from '../../helpers/state/authSlice';
-// import './AuthModal.scss';
 
 import './SignIn.scss';
 
 const SignIn = (props) => {
 	const dispatch = useDispatch();
 	const _history = useHistory();
-	const onSubmit = useCallback((data, { resetForm }) => {
-		dispatch(loginUser({ username: data.username, password: data.password }))
-			.then(unwrapResult)
-			.then((result) => {
-				console.log(result);
-				// toast.success('User created successfully!');
-				// resetForm({ values: initialValue });
-				// _history.push(`/sign-in`);
-			})
-			.catch((error) => {
-				console.log(error);
-				// toast.error('User creation failed!');
-				// console.log('Error message', error);
-			});
-	}, []);
+	const onSubmit = useCallback(
+		(data, { resetForm }) => {
+			dispatch(
+				loginUser({
+					user: {
+						email: data.email,
+						password: data.password,
+					},
+				})
+			)
+				.then(unwrapResult)
+				.then((result) => {
+					toast.success('User logged successfully!');
+					_history.push(`/transactions`);
+				})
+				.catch((error) => {
+					toast.error(error && error.message);
+				});
+		},
+		[dispatch, _history]
+	);
 	return (
 		<div className="sign-in">
 			<Box className="auth-modal">
@@ -71,31 +76,28 @@ const SignIn = (props) => {
 									justifyContent="center">
 									<Grid container spacing={1} alignItems="center">
 										<Grid item>
-											<AccountCircle className="icon" />
+											<EmailIcon className="icon" />
 										</Grid>
 										<Grid item xs={11}>
 											<TextField
-												name="username"
-												value={values.username}
+												name="email"
+												value={values.email}
 												onChange={handleChange}
 												onBlur={handleBlur}
-												label="Username"
+												label="Email"
 												required
 												variant="outlined"
 												id="outlined-full-width"
 												className="input"
 												fullWidth
-												error={
-													touched.username &&
-													!!errors.username
-												}
+												error={touched.email && !!errors.email}
 											/>
 										</Grid>
 									</Grid>
 									<Grid item>
-										{touched.username && !!errors.username && (
+										{touched.email && !!errors.email && (
 											<FormHelperText>
-												{errors.username}
+												{errors.email}
 											</FormHelperText>
 										)}
 									</Grid>

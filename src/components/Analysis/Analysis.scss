@@ -1,0 +1,18 @@
+@import '../../assets/scss/colors';
+
+.content {
+	display: flex;
+	flex-direction: row !important;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+
+	.card {
+		width: 550px;
+		height: 250px;
+		padding: 16px;
+		background-color: $component-bg;
+		border-radius: 12px;
+		margin: 0 20px 20px 0;
+	}
+}

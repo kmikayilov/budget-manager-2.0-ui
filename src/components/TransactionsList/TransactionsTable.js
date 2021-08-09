@@ -11,6 +11,7 @@ const TransactionsTable = ({ data, headers, page, sizePerPage, totalSize, onTabl
 				keyField="id"
 				data={data || []}
 				columns={headers}
+				wrapperClasses="scrollable"
 				noDataIndication={() => <div class="text-center">No data</div>}
 				condensed
 				bordered={true}

@@ -14,28 +14,23 @@ export const registerUser = createAsyncThunk('auth/register', async (data, thunk
 	return response;
 });
 
-export const loginUser = createAsyncThunk(
-	'auth/login',
-	async ({ username, password }, thunkAPI) => {
-		const response = await api.AuthAPI.loginUser(username, password);
-		if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors);
-		return response;
-	}
-);
+export const loginUser = createAsyncThunk('auth/login', async (data, thunkAPI) => {
+	const response = await api.AuthAPI.loginUser(data);
+	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors);
+	return response;
+});
 
-// export const fetchLoggedUser = createAsyncThunk("auth/user", async (thunkAPI) => {
-// 	const response = await api.AuthAPI.fetchUser()
-// 	if (!!response.error) {
-// 		return thunkAPI.rejectWithValue(response.error.Errors || response.error)
-// 	}
-// 	return { user: response.user }
-// })
+export const fetchLoggedUser = createAsyncThunk('auth/fetch', async (data, thunkAPI) => {
+	const response = await api.AuthAPI.fetchUser();
+	if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors);
+	return response;
+});
 
 const authSlice = createSlice({
 	name: 'auth',
 	initialState: initialAuthState,
 	reducers: {
-		logout(state, action) {
+		logout: (state) => {
 			state.isLoading = initialAuthState.isLoading;
 			state.token = initialAuthState.token;
 			state.loggedUser = initialAuthState.loggedUser;
@@ -47,10 +42,7 @@ const authSlice = createSlice({
 			state.isLoading = true;
 		},
 		[registerUser.fulfilled]: (state, action) => {
-			// console.log(action);
 			state.isLoading = false;
-			// state.token = action.payload.token;
-			// state.loggedUser = action.payload.user;
 			state.error = null;
 		},
 		[registerUser.rejected]: (state, action) => {
@@ -61,7 +53,6 @@ const authSlice = createSlice({
 			state.isLoading = true;
 		},
 		[loginUser.fulfilled]: (state, action) => {
-			console.log(action);
 			state.isLoading = false;
 			state.token = action.payload.token;
 			state.loggedUser = action.payload.user;
@@ -71,31 +62,19 @@ const authSlice = createSlice({
 			state.isLoading = false;
 			state.error = action.payload || action.error;
 		},
-		// [loginAsync.pending]: (state, action) => {
-		// 	state.isLoading = true
-		// },
-		// [loginAsync.fulfilled]: (state, action) => {
-		// 	state.isLoading = false
-		// 	state.token = action.payload.token
-		// 	state.loggedUser = action.payload.user
-		// 	state.error = null
-		// },
-		// [loginAsync.rejected]: (state, action) => {
-		// 	state.isLoading = false
-		// 	state.error = action.payload || action.error
-		// },
-		// [fetchLoggedUser.pending]: (state, action) => {
-		// 	state.isLoading = true
-		// },
-		// [fetchLoggedUser.fulfilled]: (state, action) => {
-		// 	state.isLoading = false
-		// 	state.loggedUser = action.payload.user
-		// 	state.error = null
-		// },
-		// [fetchLoggedUser.rejected]: (state, action) => {
-		// 	state.isLoading = false
-		// 	state.error = action.payload || action.error
-		// },
+		[fetchLoggedUser.pending]: (state, action) => {
+			state.isLoading = true;
+		},
+		[fetchLoggedUser.fulfilled]: (state, action) => {
+			state.isLoading = false;
+			state.token = action.payload.token;
+			state.loggedUser = action.payload.user;
+			state.error = null;
+		},
+		[fetchLoggedUser.rejected]: (state, action) => {
+			state.isLoading = false;
+			state.error = action.payload || action.error;
+		},
 	},
 });
 

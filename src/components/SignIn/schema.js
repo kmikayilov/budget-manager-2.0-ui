@@ -1,11 +1,13 @@
 import * as yup from 'yup';
 
 export const schema = yup.object().shape({
-	username: yup.string().required(),
-	password: yup.string().required(),
+	email: yup.string().email('Format is wrong!').required('Email is required!'),
+	password: yup.string().required('Password is required!'),
 });
 
 export const initialValue = {
-	username: '',
+	// email: 'kenan.mikayilov.00@gmail.com',
+	// password: 'KM_jr2000',
+	email: '',
 	password: '',
 };

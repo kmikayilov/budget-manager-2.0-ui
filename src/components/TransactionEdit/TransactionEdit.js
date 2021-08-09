@@ -58,20 +58,20 @@ const TransactionEdit = () => {
 	const onSubmit = useCallback(
 		(data, { resetForm }) => {
 			let date = dateNormalizer(data.transactionDate);
-
-			dispatch(
-				editTransaction({
-					id: id,
-					data: {
-						transaction: {
-							categoryId: data.categoryId.value,
-							paymentId: data.paymentMethodId.value,
-							transactionAmount: data.transactionAmount,
-							transactionDate: date,
-						},
+			let d = {
+				id: id,
+				data: {
+					transaction: {
+						categoryId: data.categoryId.value,
+						transactionAmount: data.transactionAmount,
+						transactionDate: date,
 					},
-				})
-			)
+				},
+			};
+
+			if (data.paymentId) d.transaction.paymentId = data.paymentMethodId.value;
+
+			dispatch(editTransaction(d))
 				.then(unwrapResult)
 				.then((result) => {
 					toast.success('Transaction edited successfully!');
@@ -86,7 +86,7 @@ const TransactionEdit = () => {
 	);
 
 	return (
-		<Box className="content">
+		<Box className="content scrollable">
 			<Box className="transaction-edition-wrapper">
 				<Box className="title">
 					<Typography variant="h6">Edit the transaction</Typography>

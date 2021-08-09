@@ -4,6 +4,7 @@ import api from '../api';
 const initialAnalysisState = {
 	categoriesDonutChart: { data: null, error: null, isFetching: false },
 	incomeExpenseBarChart: { data: null, error: null, isFetching: false },
+	totalNetBarChart: { data: null, error: null, isFetching: false },
 };
 
 export const selectCategoriesDonutChart = createAsyncThunk(
@@ -19,6 +20,15 @@ export const selectIncomeExpenseBarChart = createAsyncThunk(
 	'analysis/income-expense-bar-chart',
 	async (data, thunkAPI) => {
 		const response = await api.AnalysisAPI.selectIncomeExpenseBarChart(data);
+		if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors);
+		return response;
+	}
+);
+
+export const selectTotalNetBarChart = createAsyncThunk(
+	'analysis/total-net-bar-chart',
+	async (data, thunkAPI) => {
+		const response = await api.AnalysisAPI.selectTotalNetBarChart(data);
 		if (!!response.error) return thunkAPI.rejectWithValue(response.error.errors);
 		return response;
 	}
@@ -58,6 +68,19 @@ const analysisSlice = createSlice({
 			state.error = null;
 		},
 		[selectIncomeExpenseBarChart.rejected]: (state, action) => {
+			state.isFetching = false;
+			state.error = action.payload || action.error;
+		},
+
+		[selectTotalNetBarChart.pending]: (state, action) => {
+			state.isFetching = true;
+		},
+		[selectTotalNetBarChart.fulfilled]: (state, action) => {
+			state.isFetching = false;
+			state.totalNetBarChart.data = [...action.payload];
+			state.error = null;
+		},
+		[selectTotalNetBarChart.rejected]: (state, action) => {
 			state.isFetching = false;
 			state.error = action.payload || action.error;
 		},

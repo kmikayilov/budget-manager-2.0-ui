@@ -56,6 +56,14 @@
 				}
 
 				.select {
+					&--is-disabled {
+						.select__control {
+							color: $app-bg;
+							border-color: $app-bg;
+							background-color: $app-bg;
+						}
+					}
+
 					&__control {
 						background-color: $component-bg;
 						border: 1px solid $border-color;
@@ -82,7 +90,42 @@
 
 					&__menu {
 						background-color: $component-bg;
-						color: $chart-percentage-color;
+						color: $grey-text-bg;
+
+						&-list {
+							background-color: $component-bg;
+							.select__option {
+								&--is-focused,
+								&--is-selected {
+									background-color: $border-color;
+									color: $chart-percentage-color;
+								}
+							}
+
+							&::-webkit-scrollbar {
+								width: 4px;
+								height: 4px;
+							}
+
+							*:hover::-webkit-scrollbar {
+								width: 5px;
+								height: 5px;
+							}
+
+							&::-webkit-scrollbar-button {
+								display: none;
+							}
+
+							&::-webkit-scrollbar-thumb {
+								border-radius: 10px;
+								background: $chart-percentage-color;
+							}
+
+							&::-webkit-scrollbar-track {
+								background: $app-bg;
+								border: none;
+							}
+						}
 					}
 				}
 			}

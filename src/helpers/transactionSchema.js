@@ -12,10 +12,9 @@ export const schema = yup.object().shape({
 		.nullable(),
 	paymentMethodId: yup
 		.object({
-			value: yup.string().required(),
-			label: yup.string().required(),
+			value: yup.string(),
+			label: yup.string(),
 		})
-		.required('Payment method is required')
 		.nullable(),
 });
 

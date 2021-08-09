@@ -34,25 +34,6 @@
 		background-image: none;
 		overflow: auto;
 
-		&::-webkit-scrollbar {
-			width: 4px;
-			height: 4px;
-		}
-
-		&::-webkit-scrollbar-button {
-			display: none;
-		}
-
-		&::-webkit-scrollbar-thumb {
-			border-radius: 10px;
-			background: $violet-active-text-bg;
-		}
-
-		&::-webkit-scrollbar-track {
-			background: $app-bg;
-			border: none;
-		}
-
 		.title-wrapper {
 			width: 100%;
 			height: fit-content;
@@ -99,7 +80,7 @@
 
 			.input {
 				border-radius: 16px;
-				color: #3c444e;
+				color: $violet-active-text-bg;
 				width: 100%;
 			}
 
@@ -134,7 +115,7 @@
 				}
 
 				input {
-					color: $grey-text-bg;
+					color: $violet-active-text-bg;
 				}
 
 				label {
@@ -241,4 +222,38 @@
 			}
 		}
 	}
+}
+
+.scrollable {
+	&::-webkit-scrollbar {
+		width: 2px;
+		height: 2px;
+	}
+
+	*:hover::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+
+	&::-webkit-scrollbar-button {
+		display: none;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background: $chart-percentage-color;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: $app-bg;
+		border: none;
+	}
+}
+
+.Toastify__toast--success {
+	background-color: $chart-percentage-color !important;
+}
+
+.Toastify__toast--error {
+	background-color: $primary-red !important;
 }

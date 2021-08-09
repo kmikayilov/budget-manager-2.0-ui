@@ -1,20 +1,19 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { headers, setHistory } from './tableConfig';
 import TransactionsTable from './TransactionsTable';
-import './TransactionsList.scss';
 import { Typography, Box } from '@material-ui/core';
 
-import { useSelector, shallowEqual, useDispatch } from 'react-redux'; //useSelector, useDispatch, shallowEqual
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { filterTransactions } from '../../helpers/state/transactionSlice';
-import { fetchTransactions } from '../../helpers/state/listsSlice';
 import { setFetchType } from '../../helpers/state/transactionSlice';
 import TransactionDelete from '../TransactionDelete/TransactionDelete';
 
-const TransactionsList = ({}) => {
+import './TransactionsList.scss';
+
+const TransactionsList = () => {
 	const [pageSize, setPageSize] = useState(10);
 	const [currentPage, setCurrentPage] = useState(1);
-	// const [transactionData, setTransactionData] = useState([]);
 	const [sortData, setSortData] = useState({ sortField: '', sortOrder: '' });
 	const [filtersData, setFiltersData] = useState(null);
 
@@ -39,20 +38,8 @@ const TransactionsList = ({}) => {
 
 	//---------------------------------------
 
-	//'filter' | 'pagination' | 'sort' | 'cellEdit'
 	const handleTableChange = useCallback(
 		(type, { page, sizePerPage, sortField, sortOrder, filters, data }) => {
-			// console.log(
-			// 	'sortField',
-			// 	sortField,
-			// 	'sortOrder',
-			// 	sortOrder,
-			// 	'filters',
-			// 	JSON.stringify(filters),
-			// 	'data',
-			// 	data
-			// );
-
 			let arr = ['category_id', 'payment_id', 'accounting_id'];
 
 			for (let filter in filters) {
@@ -90,14 +77,14 @@ const TransactionsList = ({}) => {
 					}
 					break;
 				default:
-				// code block
 			}
 		},
 		[currentPage, pageSize, filtersData]
 	);
 
 	useEffect(() => {
-		// if (isAppLoading === true) return;
+		if (isAppLoading === true) return;
+		if (isShownDelete === true) return;
 
 		const sortQuery = !!sortData.sortField ? sortData : {};
 		const query = {
@@ -108,20 +95,13 @@ const TransactionsList = ({}) => {
 		};
 
 		dispatch(filterTransactions(query));
-	}, [
-		pageSize,
-		currentPage,
-		sortData,
-		filtersData,
-		// dispatch,
-		// isAppLoading
-	]);
+	}, [pageSize, currentPage, sortData, filtersData, dispatch, isAppLoading, isShownDelete]);
 
 	const history = useHistory();
 	setHistory(history);
 
 	return (
-		<div className="content">
+		<div className="content scrollable">
 			<TransactionDelete isShown={isShownDelete} handleClose={onDeleteClose} />
 			<div class="transaction-list-wrapper">
 				<Box className="title-wrapper">

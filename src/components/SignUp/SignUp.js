@@ -10,44 +10,42 @@ import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-// import './AuthModal.scss';
 import { registerUser } from '../../helpers/state/authSlice';
 
 import './SignUp.scss';
 
 toast.configure();
 
-const SignUp = (props) => {
+const SignUp = () => {
 	const dispatch = useDispatch();
 	const _history = useHistory();
 
-	// const categories = useSelector((state) => state.lists.categories.data, shallowEqual);
-	// const payments = useSelector((state) => state.lists.payments.data, shallowEqual);
-	// const isAppLoading = useSelector((state) => state.common.isLoading, shallowEqual);
-
-	const onSubmit = useCallback((data, { resetForm }) => {
-		dispatch(
-			registerUser({
-				user: {
-					email: data.email,
-					username: data.username,
-					password: data.password,
-				},
-			})
-		)
-			.then(unwrapResult)
-			.then((result) => {
-				toast.success('User created successfully!');
-				resetForm({ values: initialValue });
-				_history.push(`/sign-in`);
-			})
-			.catch((error) => {
-				toast.error('User creation failed!');
-				console.log('Error message', error);
-			});
-	}, []);
+	const onSubmit = useCallback(
+		(data, { resetForm }) => {
+			dispatch(
+				registerUser({
+					user: {
+						email: data.email,
+						username: data.username,
+						password: data.password,
+					},
+				})
+			)
+				.then(unwrapResult)
+				.then((result) => {
+					toast.success('User created successfully!');
+					resetForm({ values: initialValue });
+					_history.push(`/sign-in`);
+				})
+				.catch((error) => {
+					toast.error('User creation failed!');
+					console.log('Error message', error);
+				});
+		},
+		[dispatch, _history]
+	);
 	return (
 		<div className="sign-in">
 			<Box className="auth-modal">
@@ -92,7 +90,7 @@ const SignUp = (props) => {
 												value={values.email}
 												onChange={handleChange}
 												onBlur={handleBlur}
-												label="email"
+												label="Email"
 												required
 												variant="outlined"
 												id="outlined-full-width"

@@ -19,8 +19,9 @@ const FetchAPI = {
 			method: 'POST',
 			body: data,
 			headers: {
-				// Authorization: 'Bearer ' + token,
+				Authorization: !!token && 'Bearer ' + token,
 			},
+			credentials: 'include',
 		}).then(handleResponse);
 	},
 	postJson: (urlStr, data) => {
@@ -28,8 +29,9 @@ const FetchAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				// Authorization: 'Bearer ' + token
+				Authorization: !!token && 'Bearer ' + token,
 			},
+			credentials: 'include',
 			body: JSON.stringify(data),
 		}).then(handleResponse);
 	},
@@ -38,8 +40,9 @@ const FetchAPI = {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				// Authorization: 'Bearer ' + token
+				Authorization: !!token && 'Bearer ' + token,
 			},
+			credentials: 'include',
 			body: JSON.stringify(data),
 		}).then(handleResponse);
 	},
@@ -48,8 +51,9 @@ const FetchAPI = {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				// Authorization: 'Bearer ' + token
+				Authorization: !!token && 'Bearer ' + token,
 			},
+			credentials: 'include',
 			body: JSON.stringify(data),
 		}).then(handleResponse);
 	},
@@ -61,8 +65,9 @@ const FetchAPI = {
 		}
 		return fetch(urlObj, {
 			headers: {
-				// Authorization: 'Bearer ' + token
+				Authorization: !!token && 'Bearer ' + token,
 			},
+			credentials: 'include',
 		}).then(handleResponse);
 	},
 	get: (urlStr, params) => {
@@ -73,8 +78,9 @@ const FetchAPI = {
 		}
 		return fetch(urlObj, {
 			headers: {
-				// Authorization: 'Bearer ' + token
+				Authorization: !!token && 'Bearer ' + token,
 			},
+			credentials: 'include',
 		}).then(handleResponse);
 	},
 };
@@ -122,8 +128,7 @@ const TransactionAPI = {
 };
 
 const AuthAPI = {
-	loginUser: (username, password) =>
-		FetchAPI.postJson('auth/login', { user: { username, password } }),
+	loginUser: (data) => FetchAPI.postJson('auth/login', data),
 	fetchUser: () => FetchAPI.get('auth/user'),
 	registerUser: (data) => FetchAPI.postJson('auth/register', data),
 };
@@ -138,9 +143,10 @@ const ListsAPI = {
 const AnalysisAPI = {
 	selectCategoriesDonutChart: () => FetchAPI.get('analysis/categories-donut-chart'),
 	selectIncomeExpenseBarChart: () => FetchAPI.get('analysis/income-expense-bar-chart'),
+	selectTotalNetBarChart: () => FetchAPI.get('analysis/total-net-bar-chart'),
 };
 
-export default {
+const api = {
 	setToken,
 	setLogoutFn,
 	API_URL,
@@ -150,3 +156,5 @@ export default {
 	AnalysisAPI,
 	TransactionAPI,
 };
+
+export default api;

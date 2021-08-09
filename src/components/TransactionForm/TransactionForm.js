@@ -10,16 +10,6 @@ import { fetchCategories, fetchPayments } from '../../helpers/state/listsSlice';
 
 import './TransactionForm.scss';
 
-const colourStyles = {
-	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-		return {
-			...styles,
-			backgroundColor: (isFocused || isSelected) && '#35404b',
-			color: (isFocused || isSelected) && '#28acc0',
-		};
-	},
-};
-
 const Transaction = ({
 	handleSubmit,
 	values,
@@ -117,7 +107,7 @@ const Transaction = ({
 							})}
 							value={values.categoryId}
 							placeholder="Select..."
-							styles={colourStyles}
+							// menuIsOpen={true}
 							onChange={(e) => {
 								setFieldValue('categoryId', e);
 							}}
@@ -137,6 +127,13 @@ const Transaction = ({
 							as={Select}
 							name="paymentMethodId"
 							classNamePrefix="select"
+							isDisabled={
+								values &&
+								values.categoryId &&
+								(values.categoryId.value === 13 ||
+									values.categoryId.value === 14 ||
+									values.categoryId.value === 15)
+							}
 							options={payments?.map((c) => {
 								return {
 									value: c.id,
@@ -145,7 +142,6 @@ const Transaction = ({
 							})}
 							placeholder="Select..."
 							value={values.paymentMethodId}
-							styles={colourStyles}
 							onChange={(e) => {
 								setFieldValue('paymentMethodId', e);
 							}}

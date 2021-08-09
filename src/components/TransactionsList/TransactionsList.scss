@@ -1,4 +1,4 @@
-@import "../../assets/scss/colors";
+@import '../../assets/scss/colors';
 
 .transaction-list-wrapper {
 	margin-top: 50px;
@@ -23,24 +23,6 @@
 			.react-bootstrap-table {
 				overflow: auto;
 				margin-top: 50px;
-
-				&::-webkit-scrollbar {
-					width: 7px;
-					height: 4px;
-				}
-
-				&::-webkit-scrollbar-button {
-					display: none;
-				}
-
-				&::-webkit-scrollbar-thumb {
-					border-radius: 10px;
-					background: $chart-percentage-color;
-				}
-
-				&::-webkit-scrollbar-track {
-					background: $component-bg;
-				}
 
 				.table {
 					border: 1px solid $border-color;
@@ -88,7 +70,8 @@
 
 											&:focus {
 												outline: none;
-												box-shadow: 0 0 0 0.25rem rgba(53, 64, 75, 0.25);
+												box-shadow: 0 0 0 0.25rem
+													rgba(53, 64, 75, 0.25);
 											}
 
 											&::placeholder {
@@ -111,7 +94,8 @@
 
 											&:focus {
 												outline: none;
-												box-shadow: 0 0 0 0.25rem rgba(53, 64, 75, 0.25);
+												box-shadow: 0 0 0 0.25rem
+													rgba(53, 64, 75, 0.25);
 											}
 
 											option {
@@ -193,14 +177,14 @@
 							left: 32px;
 
 							.react-bootstrap-table-pagination-total {
-								color: $violet-active-text-bg;
+								color: $grey-text-bg;
 							}
 
 							.dropdown {
 								margin-right: 20px;
 								.btn {
 									width: 70px;
-									color: $violet-active-text-bg;
+									color: $grey-text-bg;
 									background-color: transparent;
 									border-color: $border-color;
 									display: flex;
@@ -285,7 +269,8 @@
 										&:focus {
 											z-index: 3;
 											outline: 0;
-											box-shadow: 0 0 0 0.25rem rgba($border-color, 0.25);
+											box-shadow: 0 0 0 0.25rem
+												rgba($border-color, 0.25);
 										}
 									}
 

@@ -1,29 +1,18 @@
-import React from // useEffect
-'react';
-// import ReactApexChart from 'react-apexcharts';
-// import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import React from 'react';
+import { BarChart, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
 
-// import { selectIncomeExpenseBarChart } from '../../../helpers/state/analysisSlice';
-
-// import FusionCharts from 'fusioncharts';
-// import charts from 'fusioncharts/fusioncharts.charts';
-// import ReactFusioncharts from 'react-fusioncharts';
-
-// Resolves charts dependancy
-// charts(FusionCharts);
-
-const ColumnChart = (props) => {
-	// const dispatch = useDispatch();
-	// const data = useSelector((state) => state.analysis.incomeExpenseBarChart.data, shallowEqual);
-	// const isAppLoading = useSelector((state) => state.common.isLoading, shallowEqual);
-
-	// useEffect(() => {
-	// 	if (!isAppLoading) {
-	// 		if (!data) dispatch(selectIncomeExpenseBarChart());
-	// 	}
-	// }, [data, isAppLoading, dispatch]);
-
-	return <div></div>;
-};
+const ColumnChart = ({ data, children }) => (
+	<ResponsiveContainer width="100%" height="100%">
+		<BarChart
+			// width={500}
+			// height={300}
+			data={data}>
+			<XAxis dataKey="name" />
+			<YAxis />
+			<Legend />
+			{children}
+		</BarChart>
+	</ResponsiveContainer>
+);
 
 export default ColumnChart;

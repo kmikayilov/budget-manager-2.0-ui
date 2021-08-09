@@ -85,8 +85,6 @@ const transactionSlice = createSlice({
 			state.isFetching = true;
 		},
 		[filterTransactions.fulfilled]: (state, action) => {
-			console.log(action);
-
 			let transactions = action.payload.transactions;
 			let data = [];
 

@@ -35,16 +35,17 @@ const TransactionAdd = () => {
 	const onSubmit = useCallback(
 		(data, { resetForm }) => {
 			let date = dateNormalizer(data.transactionDate);
-			dispatch(
-				addTransaction({
-					transaction: {
-						categoryId: data.categoryId.value,
-						paymentId: data.paymentMethodId.value,
-						transactionAmount: data.transactionAmount,
-						transactionDate: date,
-					},
-				})
-			)
+			let d = {
+				transaction: {
+					categoryId: data.categoryId.value,
+					transactionAmount: data.transactionAmount,
+					transactionDate: date,
+				},
+			};
+
+			if (data.paymentId) d.transaction.paymentId = data.paymentMethodId.value;
+
+			dispatch(addTransaction(d))
 				.then(unwrapResult)
 				.then((result) => {
 					toast.success('Transaction created successfully!');
@@ -60,7 +61,7 @@ const TransactionAdd = () => {
 	);
 
 	return (
-		<Box className="content">
+		<Box className="content scrollable">
 			<Box className="transaction-addition-wrapper">
 				<Box className="title">
 					<Typography variant="h6">Add new transaction</Typography>
@@ -71,6 +72,7 @@ const TransactionAdd = () => {
 					initialValues={initialValue}
 					enableReinitialize={true}>
 					{(props) => {
+						// console.log(props.values);
 						return <TransactionForm {...props} type="add" />;
 					}}
 				</Formik>
