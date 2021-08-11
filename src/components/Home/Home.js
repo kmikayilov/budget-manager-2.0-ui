@@ -19,7 +19,7 @@ const Home = ({ logout, user }) => {
 		<div className="Home" data-testid="Home">
 			<Header logout={logout} user={user} toggle={() => setIsOpen(!isOpen)} />
 			<Grid container className="main">
-				<SideNavBar isOpen={isOpen} />
+				<SideNavBar isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} />
 				<Switch>
 					<Route path="/transactions" exact>
 						<TransactionsList />

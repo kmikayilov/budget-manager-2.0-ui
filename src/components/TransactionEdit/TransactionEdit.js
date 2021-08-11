@@ -14,6 +14,12 @@ import { editTransaction } from '../../helpers/state/transactionSlice';
 import { dateNormalizer } from '../../helpers/utils';
 import { schema, initialValue } from '../../helpers/transactionSchema';
 
+import {
+	selectIncomeExpenseBarChart,
+	selectTotalNetBarChart,
+	selectCategoriesDonutChart,
+} from '../../helpers/state/analysisSlice';
+
 import './TransactionEdit.scss';
 
 toast.configure();
@@ -74,6 +80,10 @@ const TransactionEdit = () => {
 			dispatch(editTransaction(d))
 				.then(unwrapResult)
 				.then((result) => {
+					dispatch(selectIncomeExpenseBarChart());
+					dispatch(selectTotalNetBarChart());
+					dispatch(selectCategoriesDonutChart());
+
 					toast.success('Transaction edited successfully!');
 					_history.push(`/transactions`);
 				})

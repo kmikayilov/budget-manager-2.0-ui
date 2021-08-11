@@ -8,11 +8,34 @@
 	align-items: center;
 
 	.card {
-		width: 550px;
-		height: 250px;
+		width: 600px;
+		height: 350px;
 		padding: 16px;
 		background-color: $component-bg;
 		border-radius: 12px;
 		margin: 0 20px 20px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.recharts-responsive-container {
+			.recharts-wrapper {
+				.recharts-legend-wrapper {
+					padding: 5px 15px;
+					right: 0px;
+					left: unset !important;
+					bottom: 0 !important;
+					line-height: 30px;
+					border-radius: 10px;
+					width: 210px !important;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 600px) {
+		.card {
+			margin: 0 0 20px 0;
+		}
 	}
 }

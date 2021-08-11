@@ -8,29 +8,7 @@ import AssessmentIcon from '@material-ui/icons/Assessment';
 
 import './SideNavBar.scss';
 
-// function getWindowDimensions() {
-// 	const { innerWidth: width, innerHeight: height } = window;
-// 	return { width, height };
-// }
-
-const SideNavBar = ({ logout, isOpen }) => {
-	// const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
-	// const [openSidebar, setOpenSidebar] = React.useState(isOpen);
-
-	// React.useEffect(() => {
-	// 	function handleResize() {
-	// 		setWindowDimensions(getWindowDimensions());
-	// 	}
-
-	// 	window.addEventListener('resize', handleResize);
-	// 	return () => window.removeEventListener('resize', handleResize);
-	// }, []);
-
-	// React.useEffect(() => {
-	// 	if (windowDimensions.width >= 600) setOpenSidebar(isOpen);
-	// 	else setOpenSidebar(false);
-	// }, [windowDimensions, isOpen]);
-
+const SideNavBar = ({ isOpen, toggle }) => {
 	return (
 		<div className={['side-nav-bar', isOpen ? 'open' : ''].join(' ')}>
 			<ul>

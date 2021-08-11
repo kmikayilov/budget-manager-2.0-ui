@@ -3,8 +3,7 @@ import { Formik } from 'formik';
 import { schema, initialValue } from './schema';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Box, Button, FormHelperText, Grid, Typography } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { Box, Button, FormHelperText, Grid, Typography, TextField } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
@@ -93,8 +92,12 @@ const SignUp = () => {
 												label="Email"
 												required
 												variant="outlined"
-												id="outlined-full-width"
-												className="input"
+												className={[
+													'input-wrapper',
+													touched.email &&
+														!errors.email &&
+														'valid',
+												].join(' ')}
 												fullWidth
 												error={touched.email && !!errors.email}
 											/>
@@ -127,8 +130,12 @@ const SignUp = () => {
 												label="Username"
 												required
 												variant="outlined"
-												id="outlined-full-width"
-												className="input"
+												className={[
+													'input-wrapper',
+													touched.username &&
+														!errors.username &&
+														'valid',
+												].join(' ')}
 												fullWidth
 												error={
 													touched.username &&
@@ -152,15 +159,20 @@ const SignUp = () => {
 										</Grid>
 										<Grid item xs={11}>
 											<TextField
+												type="password"
 												name="password"
 												value={values.password}
 												onChange={handleChange}
 												onBlur={handleBlur}
 												label="Password"
-												className="input"
 												required
 												variant="outlined"
-												id="outlined-full-width"
+												className={[
+													'input-wrapper',
+													touched.password &&
+														!errors.password &&
+														'valid',
+												].join(' ')}
 												fullWidth
 												error={
 													touched.password &&

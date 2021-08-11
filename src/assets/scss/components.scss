@@ -78,58 +78,80 @@
 			border-bottom: 2px solid #35404b;
 			border-radius: 0;
 
-			.input {
-				border-radius: 16px;
-				color: $violet-active-text-bg;
-				width: 100%;
-			}
-
-			.icon {
-				color: #3c444e;
-			}
-
-			.btn {
-				margin-top: 30px;
-				background-color: transparent;
-				border: 1px solid $violet-active-text-bg;
-				border-radius: 16px;
-				color: $grey-text-bg;
-
-				transition: all 0.5s;
-
-				&:hover {
-					background-color: $violet-active-text-bg;
-					color: #fff;
-				}
-			}
-
-			.MuiFormHelperText-root {
-				color: $primary-red !important;
-			}
-
 			.MuiGrid-root {
-				fieldset {
-					top: 0px;
-					border-color: $grey-text-bg;
+				&:not(:last-child) {
+					margin-bottom: 10px;
+				}
+
+				.input-wrapper {
 					border-radius: 16px;
-				}
-
-				input {
 					color: $violet-active-text-bg;
+					width: 100%;
+
+					label {
+						background-color: $component-bg;
+						padding: 0 8px;
+						color: $grey-text-bg;
+
+						&.MuiFormLabel-root.Mui-error {
+							color: $primary-red !important;
+						}
+
+						&.MuiFormLabel-root.Mui-focused {
+							color: $violet-active-text-bg;
+						}
+					}
+
+					.MuiInputBase-root {
+						&.Mui-error {
+							fieldset {
+								border: 1px solid $primary-red;
+							}
+						}
+
+						input {
+							color: $violet-active-text-bg;
+						}
+
+						fieldset {
+							top: 0px;
+							border-color: $grey-text-bg;
+							border-radius: 16px;
+						}
+					}
+
+					&.btn {
+						margin-top: 30px;
+						background-color: transparent;
+						border: 1px solid $violet-active-text-bg;
+						border-radius: 16px;
+						color: $grey-text-bg;
+
+						transition: all 0.5s;
+
+						&:hover {
+							background-color: $violet-active-text-bg;
+							color: #fff;
+						}
+					}
+
+					&.valid {
+						border-color: $violet-active-text-bg;
+
+						.MuiInputBase-root {
+							fieldset {
+								border-color: $violet-active-text-bg;
+							}
+						}
+					}
 				}
 
-				label {
-					background-color: $component-bg;
-					padding: 0 8px;
-					color: $grey-text-bg;
+				.icon {
+					color: #3c444e;
+				}
 
-					&.MuiFormLabel-root.Mui-error {
-						color: $primary-red !important;
-					}
-
-					&.MuiFormLabel-root.Mui-focused {
-						color: $violet-active-text-bg;
-					}
+				.MuiFormHelperText-root {
+					color: $primary-red !important;
 				}
 			}
 		}
@@ -176,7 +198,7 @@
 							&:nth-child(2) {
 								flex-grow: 0;
 								max-width: 100%;
-								flex-basis: 90%;
+								flex-basis: 89%;
 							}
 						}
 					}
@@ -214,7 +236,7 @@
 					div {
 						div {
 							&:nth-child(2) {
-								flex-basis: 87%;
+								flex-basis: 84%;
 							}
 						}
 					}
@@ -256,4 +278,8 @@
 
 .Toastify__toast--error {
 	background-color: $primary-red !important;
+}
+
+.small {
+	font-size: 12px !important;
 }

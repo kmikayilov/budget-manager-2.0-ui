@@ -14,6 +14,12 @@ import { addTransaction } from '../../helpers/state/transactionSlice';
 import { dateNormalizer } from '../../helpers/utils';
 import { schema, initialValue } from '../../helpers/transactionSchema';
 
+import {
+	selectIncomeExpenseBarChart,
+	selectTotalNetBarChart,
+	selectCategoriesDonutChart,
+} from '../../helpers/state/analysisSlice';
+
 import './TransactionAdd.scss';
 
 toast.configure();
@@ -48,6 +54,10 @@ const TransactionAdd = () => {
 			dispatch(addTransaction(d))
 				.then(unwrapResult)
 				.then((result) => {
+					dispatch(selectIncomeExpenseBarChart());
+					dispatch(selectTotalNetBarChart());
+					dispatch(selectCategoriesDonutChart());
+
 					toast.success('Transaction created successfully!');
 					resetForm({ values: initialValue });
 					_history.push(`/transactions`);

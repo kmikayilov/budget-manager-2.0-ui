@@ -9,9 +9,9 @@ import {
 
 import ColumnChart from './ColumnChart/ColumnChart';
 import DonutChart from './DonutChart/DonutChart';
-import LineChart from './LineChart/LineChart';
+import LineGraph from './LineChart/LineChart';
 
-import { Bar } from 'recharts';
+import { Bar, Line } from 'recharts';
 
 import './Analysis.scss';
 
@@ -45,17 +45,19 @@ const Analysis = (props) => {
 			</div>
 
 			<div className="card">
-				<ColumnChart data={totalNet}>
-					<Bar dataKey="Total" fill="#28acc0" />
-				</ColumnChart>
+				<LineGraph data={totalNet}>
+					<Line
+						type="monotone"
+						dataKey="Net cash flow"
+						stroke="#28acc0"
+						activeDot={{ r: 8 }}
+					/>
+				</LineGraph>
 			</div>
 
 			<div className="card">
 				<DonutChart data={categoriesDonutChart} />
 			</div>
-			<div className="card"></div>
-
-			{/* <LineChart /> */}
 		</div>
 	);
 };

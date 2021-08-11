@@ -30,7 +30,7 @@ const Header = ({ logout, toggle, user }) => {
 				onClick={() => toggle()}>
 				<MenuIcon />
 			</IconButton>
-			<LinkContainer exact={true} to="/">
+			<LinkContainer exact={true} to="/transactions">
 				<Box
 					className="title"
 					display="flex"
@@ -54,6 +54,7 @@ const Header = ({ logout, toggle, user }) => {
 						onClick={handleProfileMenuOpen}
 						color="inherit">
 						<AccountCircle />
+						<div className="account-popup">@{user.username}</div>
 					</IconButton>
 					<Menu
 						anchorEl={anchorEl}
@@ -63,7 +64,6 @@ const Header = ({ logout, toggle, user }) => {
 						transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 						open={isMenuOpen}
 						onClose={handleMenuClose}>
-						<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 						<MenuItem onClick={logout}>Sign out</MenuItem>
 					</Menu>
 				</div>

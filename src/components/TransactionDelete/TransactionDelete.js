@@ -14,6 +14,12 @@ import {
 	Button,
 } from '@material-ui/core';
 
+import {
+	selectIncomeExpenseBarChart,
+	selectTotalNetBarChart,
+	selectCategoriesDonutChart,
+} from '../../helpers/state/analysisSlice';
+
 import './TransactionDelete.scss';
 import { deleteTransaction } from '../../helpers/state/transactionSlice';
 
@@ -37,6 +43,10 @@ const TransactionDelete = ({ isShown, handleClose }) => {
 			)
 				.then(unwrapResult)
 				.then((result) => {
+					dispatch(selectIncomeExpenseBarChart());
+					dispatch(selectTotalNetBarChart());
+					dispatch(selectCategoriesDonutChart());
+
 					toast.success(result.Success);
 					handleClose();
 				})

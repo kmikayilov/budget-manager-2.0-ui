@@ -33,6 +33,30 @@ header {
 			width: 100%;
 			height: 100%;
 		}
+
+		.MuiIconButton-label {
+			position: relative;
+
+			.account-popup {
+				position: absolute;
+				top: 100%;
+				right: 0;
+				font-size: 16px;
+				color: $grey-text-bg;
+				background-color: $app-bg;
+				padding: 5px 10px;
+				border-radius: 10px;
+				opacity: 0;
+				transition: all 0.5s;
+				margin-top: 10px;
+			}
+
+			&:hover {
+				.account-popup {
+					opacity: 1;
+				}
+			}
+		}
 	}
 	.logoIcon {
 		margin-right: 10px;

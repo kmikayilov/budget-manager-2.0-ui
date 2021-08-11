@@ -152,6 +152,43 @@
 							}
 						}
 					}
+
+					thead tr th,
+					tbody tr td {
+						.icon-wrapper {
+							width: 24px;
+							height: 24px;
+							position: relative;
+							margin: 0 auto;
+							svg {
+								position: absolute;
+								top: 0;
+								left: 0;
+							}
+						}
+
+						@media (max-width: 450px) {
+							.icon-wrapper {
+								width: 20px;
+								height: 20px;
+								svg {
+									width: 20px;
+									height: 20px;
+								}
+							}
+						}
+
+						@media (max-width: 350px) {
+							.icon-wrapper {
+								width: 16px;
+								height: 16px;
+								svg {
+									width: 16px;
+									height: 16px;
+								}
+							}
+						}
+					}
 				}
 
 				&-pagination {
@@ -221,7 +258,7 @@
 
 							@media (max-width: 450px) {
 								font-size: 13px;
-								left: 16px;
+								left: 20px;
 								.dropdown {
 									margin-right: 10px;
 									.btn {

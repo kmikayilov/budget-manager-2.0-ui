@@ -5,8 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Box, Button, FormHelperText, Grid, Typography } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { Box, Button, FormHelperText, Grid, Typography, TextField } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
@@ -87,8 +86,12 @@ const SignIn = (props) => {
 												label="Email"
 												required
 												variant="outlined"
-												id="outlined-full-width"
-												className="input"
+												className={[
+													'input-wrapper',
+													touched.email &&
+														!errors.email &&
+														'valid',
+												].join(' ')}
 												fullWidth
 												error={touched.email && !!errors.email}
 											/>
@@ -107,17 +110,30 @@ const SignIn = (props) => {
 										<Grid item>
 											<LockIcon className="icon" />
 										</Grid>
-										<Grid item xs={11}>
+										<Grid
+											item
+											xs={11}
+											style={{
+												display: 'flex',
+												flexDirection: 'row',
+												justifyContent: 'center',
+												alignItems: 'center',
+											}}>
 											<TextField
+												type="password"
 												name="password"
 												value={values.password}
 												onChange={handleChange}
 												onBlur={handleBlur}
 												label="Password"
-												className="input"
+												className={[
+													'input-wrapper',
+													touched.password &&
+														!errors.password &&
+														'valid',
+												].join(' ')}
 												required
 												variant="outlined"
-												id="outlined-full-width"
 												fullWidth
 												error={
 													touched.password &&

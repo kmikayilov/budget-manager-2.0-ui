@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { PieChart, Pie, Cell, Sector, ResponsiveContainer } from 'recharts';
 
 const COLORS = [
-	'#afb83b',
 	'#6accbc',
 	'#158fad',
 	'#884dff',
@@ -11,6 +10,7 @@ const COLORS = [
 	'#e05194',
 	'#ff8d85',
 	'#ccac93',
+	'#afb83b',
 	'#ff9933',
 	'#ff9933',
 	'#28acc0',
@@ -18,15 +18,17 @@ const COLORS = [
 
 const DonutChart = ({ data }) => {
 	const [activeIndex, setActiveIndex] = useState(0);
-
-	const onPieEnter = (_, index) => setActiveIndex(index);
+	const onPieEnter = useCallback(
+		(_, index) => {
+			setActiveIndex(index);
+		},
+		[setActiveIndex]
+	);
 
 	const renderActiveShape = (props) => {
-		const RADIAN = Math.PI / 180;
 		const {
 			cx,
 			cy,
-			midAngle,
 			innerRadius,
 			outerRadius,
 			startAngle,
@@ -36,20 +38,26 @@ const DonutChart = ({ data }) => {
 			percent,
 			value,
 		} = props;
-		const sin = Math.sin(-RADIAN * midAngle);
-		const cos = Math.cos(-RADIAN * midAngle);
-		const sx = cx + (outerRadius + 10) * cos;
-		const sy = cy + (outerRadius + 10) * sin;
-		const mx = cx + (outerRadius + 30) * cos;
-		const my = cy + (outerRadius + 30) * sin;
-		const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-		const ey = my;
-		const textAnchor = cos >= 0 ? 'start' : 'end';
 
 		return (
 			<g>
-				<text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+				<text
+					className="small"
+					x={cx}
+					y={cy - 15}
+					dy={8}
+					textAnchor="middle"
+					fill={fill}>
 					{payload.name}
+				</text>
+				<text
+					className="small"
+					x={cx}
+					y={cy + 10}
+					dy={8}
+					textAnchor="middle"
+					fill={fill}>
+					{`${value} AZN (${(percent * 100).toFixed(2)}%)`}
 				</text>
 				<Sector
 					cx={cx}
@@ -69,32 +77,22 @@ const DonutChart = ({ data }) => {
 					outerRadius={outerRadius + 10}
 					fill={fill}
 				/>
-				<path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-				<circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-				<text
-					x={ex + (cos >= 0 ? 1 : -1) * 12}
-					y={ey}
-					textAnchor={textAnchor}
-					fill="#7b8794">
-					{`${value} AZN (${(percent * 100).toFixed(2)}%)`}
-				</text>
 			</g>
 		);
 	};
 
 	return (
-		<ResponsiveContainer width="100%" height="100%">
-			<PieChart>
+		<ResponsiveContainer width="80%" height="80%">
+			<PieChart width={100} height={100}>
 				<Pie
 					data={data || []}
+					cx="50%"
+					cy="50%"
 					innerRadius={60}
 					outerRadius={80}
 					activeIndex={activeIndex}
 					activeShape={renderActiveShape}
 					onMouseEnter={onPieEnter}
-					cx="50%"
-					cy="50%"
-					labelLine={false}
 					paddingAngle={5}
 					dataKey="value">
 					{data &&
